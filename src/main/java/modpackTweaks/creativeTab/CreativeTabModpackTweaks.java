@@ -13,7 +13,7 @@ public class CreativeTabModpackTweaks extends CreativeTabs
 	
 	@Override
 	public int getTabIconItemIndex() {
-		return ModItems.tppiBook.itemID;
+		return ModItems.mtBook.itemID;
 	}
 	
 	@Override

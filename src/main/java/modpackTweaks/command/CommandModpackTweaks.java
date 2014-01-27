@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import sun.security.krb5.Config;
 import modpackTweaks.ModpackTweaks;
 import modpackTweaks.config.ConfigurationHandler;
 import modpackTweaks.item.ModItems;
@@ -34,8 +35,12 @@ public class CommandModpackTweaks extends CommandBase
 	/** First index is list, rest are mod names **/
 	private static ArrayList<String> supportedModsAndList = new ArrayList<String>();
 
+	private static String commandName;
+
 	public static void initValidCommandArguments(InputStream file)
 	{
+		commandName = ConfigurationHandler.commandName;
+
 		validCommands.add("download");
 		validCommands.add("mods");
 		validCommands.add("ores");
@@ -60,15 +65,15 @@ public class CommandModpackTweaks extends CommandBase
 	@Override
 	public String getCommandName()
 	{
-		return "tppi";
+		return commandName;
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender icommandsender)
 	{
-		return "tppi <arg>";
+		return commandName + " <arg>";
 	}
-	
+
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender par1iCommandSender)
 	{
@@ -104,14 +109,8 @@ public class CommandModpackTweaks extends CommandBase
 				if (!processCommandDownload(icommandsender, astring))
 					System.err.println("Invalid Player");
 			}
-			else if (astring[0].equalsIgnoreCase("mods"))
+			else if (astring[0].equalsIgnoreCase("changelog"))
 			{
-				processCommandMods(icommandsender, astring);
-			}else if(astring[0].equalsIgnoreCase("ores")) {
-				processVanillaBookCommand("TPPI Ore Generation Guide", "OreGen.txt", icommandsender, astring);
-			}else if(astring[0].equalsIgnoreCase("getInvolved")) {
-				processVanillaBookCommand("Getting Involved In TPPI", "GetInvolved.txt", icommandsender, astring);
-			}else if(astring[0].equalsIgnoreCase("changelog")) {
 				processCommandChangelog(icommandsender);
 			}
 
@@ -126,19 +125,21 @@ public class CommandModpackTweaks extends CommandBase
 				if (i < validCommands.size() - 1)
 					validCommandString += ", ";
 			}
-			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Proper Usage: /tppi <arg>"));
+			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Proper Usage: /" + commandName + " <arg>"));
 			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Valid args:"));
 			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(validCommandString));
 		}
 
 	}
 
-	private void processVanillaBookCommand(String title, String textFileName, ICommandSender command, String[] astring) {
-		
-		InputStream file = ModpackTweaks.class.getResourceAsStream("/assets/tppitweaks/lang/"+textFileName);
+	// Use this to add vanilla books
+	private void processVanillaBookCommand(String title, String textFileName, ICommandSender command, String[] astring)
+	{
+
+		InputStream file = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/" + textFileName);
 		List<String> vanillaBookText = file == null ? new ArrayList<String>() : TxtParser.parseFileMain(file);
 		ItemStack book = new ItemStack(Item.writtenBook);
-		
+
 		book.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
 		book.setTagInfo("title", new NBTTagString("title", title));
 
@@ -152,39 +153,10 @@ public class CommandModpackTweaks extends CommandBase
 
 		nbttagcompound.setTag("pages", bookPages);
 		nbttagcompound.setString("version", ModpackTweaks.VERSION);
-		
+
 		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(book))
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(book, 0);
-		
-	}
 
-	private boolean processCommandMods(ICommandSender command, String[] args)
-	{
-		if (args.length == 2)
-		{
-			if (args[1].equals("list"))
-			{
-				listMods(command);
-				return true;
-			}
-			else if (supportedModsAndList.contains(args[1]))
-			{
-				giveModBook(args[1], command);
-			}
-			else
-			{
-				command.sendChatToPlayer(new ChatMessageComponent().addText("Valid mod names:"));
-				listMods(command);
-			}
-
-		}
-		else
-		{
-			command.sendChatToPlayer(new ChatMessageComponent().addText("Proper Usage: /tppi mods <modname>"));
-			command.sendChatToPlayer(new ChatMessageComponent().addText("or /tppi mods list to see valid names."));
-		}
-
-		return false;
 	}
 
 	private boolean processCommandDownload(ICommandSender command, String[] args)
@@ -203,20 +175,21 @@ public class CommandModpackTweaks extends CommandBase
 			PacketDispatcher.sendPacketToPlayer(packet, (Player) command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()));
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean processCommandChangelog(ICommandSender command)
 	{
-		ItemStack changelog = ModItems.tppiBook.getChangelog();
-		
+		ItemStack changelog = ModItems.mtBook.getChangelog();
+
 		if (changelog == null)
 			return false;
-		
-		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog));
-			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(changelog, 0);
-			
+
+		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog))
+			;
+		command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(changelog, 0);
+
 		return true;
 	}
 
@@ -249,15 +222,13 @@ public class CommandModpackTweaks extends CommandBase
 		NBTTagList bookPages = new NBTTagList("pages");
 
 		ArrayList<String> pages;
-		//try
-		//{
-			pages = TxtParser.parseFileMods(FileLoader.getSupportedMods(), modName + ", " + properName);
-		/*}
-		catch (FileNotFoundException e)
-		{
-			pages = new ArrayList<String>();
-			e.printStackTrace();
-		}*/
+		// try
+		// {
+		pages = TxtParser.parseFileMods(FileLoader.getSupportedMods(), modName + ", " + properName);
+		/*
+		 * } catch (FileNotFoundException e) { pages = new ArrayList<String>();
+		 * e.printStackTrace(); }
+		 */
 
 		if (pages.get(0).startsWith("<") && pages.get(0).endsWith("> "))
 		{

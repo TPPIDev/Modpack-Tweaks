@@ -25,41 +25,45 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "TPPITweaks", name = "TPPI Tweaks", version = ModpackTweaks.VERSION)
+@Mod(modid = "ModpackTweaks", name = "Modpack Tweaks", version = ModpackTweaks.VERSION)
 @NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL }, packetHandler = PacketHandler.class)
-public class ModpackTweaks {
+public class ModpackTweaks
+{
 
 	public static final String VERSION = "0.6.7a";
 
-	@Instance("TPPITweaks")
+	@Instance
 	public static ModpackTweaks instance;
 
 	public static MTEventHandler eventHandler;
 	public static MTPlayerTracker playerTracker;
-	
+
 	public static CreativeTabModpackTweaks creativeTab = new CreativeTabModpackTweaks(CreativeTabs.getNextID());
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		ConfigurationHandler.init(new File(event.getModConfigurationDirectory()
-				.getAbsolutePath() + "/TPPI/TPPITweaks.cfg"));
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/ModpackTweaks/ModpackTweaks.cfg"));
 
-		try {
+		try
+		{
 			FileLoader.init(ConfigurationHandler.cfg, 0);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
-		
-		    ConfigurationHandler.loadGuideText(FileLoader.getGuideText());
+
+		ConfigurationHandler.loadGuideText(FileLoader.getGuideText());
 		try
 		{
 			ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText());
 		}
 		catch (FileNotFoundException e)
 		{
-			System.err.println("TPPI Changelog not found, please check the TPPI config folder.");
+			System.err.println("Changelog not found, please check the ModpackTweaks config folder.");
 		}
-		
+
 		CommandModpackTweaks.initValidCommandArguments(FileLoader.getSupportedMods());
 
 		ModItems.initItems();
@@ -71,19 +75,22 @@ public class ModpackTweaks {
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event)
+	{
 		eventHandler = new MTEventHandler();
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 		ModItems.registerRecipes();
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		//RecipeTweaks.doRecipeTweaks();
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		// RecipeTweaks.doRecipeTweaks();
 	}
 
 	@EventHandler
-	public void onFMLServerStart(FMLServerStartingEvent event) {
+	public void onFMLServerStart(FMLServerStartingEvent event)
+	{
 		// TODO event.registerServerCommand(new CommandTPPI());
 	}
 }

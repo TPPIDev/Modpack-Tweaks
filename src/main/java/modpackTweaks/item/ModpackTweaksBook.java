@@ -26,7 +26,7 @@ public class ModpackTweaksBook extends ItemEditableBook
 	{
 		super(par1);
 		setCreativeTab(ModpackTweaks.creativeTab);
-		setUnlocalizedName("tppibook");
+		setUnlocalizedName("mtbook");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -35,7 +35,7 @@ public class ModpackTweaksBook extends ItemEditableBook
 	@Override
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		icons[0] = par1IconRegister.registerIcon("tppitweaks:tppibook");
+		icons[0] = par1IconRegister.registerIcon("modpacktweaks:mtbook");
 		icons[1] = Item.writtenBook.getIconFromDamage(0);
 	}
 	
@@ -123,12 +123,12 @@ public class ModpackTweaksBook extends ItemEditableBook
 
 	public ItemStack getGuide()
 	{
-		return addTextToBook(new ItemStack(ModItems.tppiBook), 0);
+		return addTextToBook(new ItemStack(ModItems.mtBook), 0);
 	}
 	
 	public ItemStack getChangelog()
 	{
-		return addTextToBook(new ItemStack(ModItems.tppiBook, 1, 1), 1);
+		return addTextToBook(new ItemStack(ModItems.mtBook, 1, 1), 1);
 	}
 
 	@Override

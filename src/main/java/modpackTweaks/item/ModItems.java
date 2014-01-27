@@ -6,15 +6,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ModItems
 {
-	public static ModpackTweaksBook tppiBook;
+	public static ModpackTweaksBook mtBook;
 
 	public static void initItems()
 	{
-		tppiBook = new ModpackTweaksBook(ConfigurationHandler.bookID);
+		mtBook = new ModpackTweaksBook(ConfigurationHandler.bookID);
 	}
 
 	public static void registerRecipes()
 	{
-		GameRegistry.addShapelessRecipe(tppiBook.getGuide(), Item.ingotIron, Item.paper, Item.paper, Item.paper);
+		GameRegistry.addShapelessRecipe(mtBook.getGuide(), Item.ingotIron, Item.paper, Item.paper, Item.paper);
 	}
 }

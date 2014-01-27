@@ -90,7 +90,7 @@ public class FileLoader
 	public static Object manuallyGetConfigValue(Map<String, Object> m, String string, Object type) {
 		if (type instanceof Boolean)
 		{
-			File config = new File(((File) m.get("mcLocation")).getAbsolutePath() + "/config/TPPI/TPPITweaks.cfg");
+			File config = new File(((File) m.get("mcLocation")).getAbsolutePath() + "/config/ModpackTweaks/ModpackTweaks.cfg");
 			boolean noConfig = false;
 			Scanner scan = null;
 			
@@ -118,7 +118,7 @@ public class FileLoader
 		}
 		if (type instanceof String)
 		{
-			File config = new File(((File) m.get("mcLocation")).getAbsolutePath() + "/config/TPPI/TPPITweaks.cfg");
+			File config = new File(((File) m.get("mcLocation")).getAbsolutePath() + "/config/ModpackTweaks/ModpackTweaks.cfg");
 			boolean noConfig = false;
 			Scanner scan = null;
 			
@@ -146,7 +146,7 @@ public class FileLoader
 	
 	public static InputStream getGuideText()
 	{
-		bookText = ModpackTweaks.class.getResourceAsStream("/assets/tppitweaks/lang/BookText.txt");
+		bookText = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/BookText.txt");
 		return bookText;
 	}
 	
@@ -158,7 +158,7 @@ public class FileLoader
 	
 	public static InputStream getSupportedMods()
 	{
-		supportedMods = ModpackTweaks.class.getResourceAsStream("/assets/tppitweaks/lang/SupportedMods.txt");
+		supportedMods = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/SupportedMods.txt");
 		return supportedMods;
 	}
 }

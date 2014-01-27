@@ -46,7 +46,7 @@ public class MTPlayerTracker implements IPlayerTracker
 
 			player.getEntityData().setTag("TPPI", ModpackTweaks.eventHandler.getTag(player, false));
 			
-			ItemStack stack = ModItems.tppiBook.getGuide();
+			ItemStack stack = ModItems.mtBook.getGuide();
 			player.inventory.addItemStackToInventory(stack);
 			return true;
 		}

@@ -56,7 +56,7 @@ public class TxtParser
 						}
 					}
 					else
-						System.err.println("TPPI - Invalid line-skip in changelog. This may not work as intended");
+						System.err.println("Invalid line-skip in changelog. This may not work as intended");
 				}
 				// Finally, do not add this to the page
 				continue;
@@ -181,7 +181,7 @@ public class TxtParser
 						}
 					}
 					else
-						System.err.println("TPPI - Invalid line-skip in changelog. This may not work as intended");
+						System.err.println("Invalid line-skip in changelog. This may not work as intended");
 				}
 
 				// Finally, do not add this to the page

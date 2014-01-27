@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import modpackTweaks.lib.Reference;
 import modpackTweaks.util.TxtParser;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property.Type;
@@ -26,6 +27,8 @@ public class ConfigurationHandler
 	public static String changelogTitle;
 
 	public static boolean showDownloadGUI;
+	
+	public static boolean autoEnableTT;
 	
 	public static File cfg;
 	
@@ -49,6 +52,14 @@ public class ConfigurationHandler
 		changelogTitle = config.get("Guide Info", "changelogTitle", "Changelog", "The title of the changelog").getString();
 		
 		commandName = config.get("Command Info", "commandName", "modpackTweaks", "The first word used in the in-game command").getString();
+		
+		autoEnableTT = config.get("Mod Loading Tweaks", "autoEnableTT", true, "Allow this mod to disable and enable Thaumic Tinkerer automatically").getBoolean(true);
+		
+		Reference.thaumcraftFilename = config.get("Mod Loading Tweaks", "Thaumcraft_filename", Reference.DEFAULT_THAUMCRAFT_FILENAME, "The filename for Thaumcraft4 to use to check for its presence").getString();
+		Reference.TTFilename = config.get("Mod Loading Tweaks", "ThaumicTinkerer_filename", Reference.DEFAULT_TT_FILENAME, "The filename for Thaumic Tinkerer to use to check for its presence and disable/enable it automatically").getString();
+		Reference.KAMIFilename = config.get("Mod Loading Tweaks", "KAMI_filename", Reference.DEFAULT_KAMI_FILENAME, "The filename for KAMI to use to check for its presence and disable/enable it automatically").getString();
+		
+		
 		config.save();
 	}
 

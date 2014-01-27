@@ -14,10 +14,13 @@ import java.util.Scanner;
 import modpackTweaks.ModpackTweaks;
 import modpackTweaks.client.gui.ModDownload;
 import modpackTweaks.config.ConfigurationHandler;
+import modpackTweaks.lib.Reference;
 
 public class FileLoader
 {
 	private static InputStream bookText, supportedMods, changelogText;
+	
+	private static String EXTENSION = ".removed";
 		
 	public static void init(File file, int attempt) throws IOException
 	{
@@ -89,6 +92,59 @@ public class FileLoader
 			}
 		}
 		*/
+	}
+	
+	public static void disableTT()
+	{
+		for(File f : getTT()) {
+			if(!f.getName().contains(EXTENSION)) {
+				f.renameTo(new File(f.getAbsolutePath() + EXTENSION));
+			}
+		}
+	}
+	
+	public static void enableTT()
+	{
+		for(File f : getTT()) {
+			if(f.getName().contains(EXTENSION)) {
+				f.renameTo(new File(f.getAbsolutePath().replace(EXTENSION, "")));
+			}
+		}
+		
+	}
+	
+	private static ArrayList<File> getTT()
+	{
+		ArrayList<File> thaumicTinkererFiles = new ArrayList<File>();
+		File modJar;
+		
+		modJar = new File(Reference.modsFolder, Reference.TTFilename);
+		if(modJar.exists()) {
+			thaumicTinkererFiles.add(modJar);
+		}
+				
+		modJar = new File(Reference.modsFolder, Reference.KAMIFilename);
+		if(modJar.exists()) {
+			thaumicTinkererFiles.add(modJar);
+		}
+				
+		return thaumicTinkererFiles;
+	}
+	
+	public static void getThaumicTinkererFilenameState() {
+		
+		File modJar;
+		
+		modJar = new File(Reference.modsFolder, Reference.TTFilename).exists() ? new File(Reference.modsFolder, Reference.TTFilename) : new File(Reference.modsFolder, Reference.TTFilename + EXTENSION);
+		if(modJar.exists()) {
+			Reference.TTFilename = modJar.getName();
+		}
+		
+		modJar = new File(Reference.modsFolder, Reference.KAMIFilename).exists() ? new File(Reference.modsFolder, Reference.KAMIFilename) : new File(Reference.modsFolder, Reference.KAMIFilename + EXTENSION);
+		if(modJar.exists()) {
+			Reference.KAMIFilename = modJar.getName();
+		}
+		
 	}
 	
 	public static Object manuallyGetConfigValue(Map<String, Object> m, String string, Object type) {
@@ -216,5 +272,24 @@ public class FileLoader
 		fw.flush();
 		fw.close();
 		scan.close();
+	}
+	
+	public static void removeDuplicateMods()
+	{
+		ArrayList<File> jars = getTT();
+		File removedTT = new File(Reference.modsFolder.getAbsolutePath() + "/" + Reference.TTFilename + EXTENSION);
+		File removedKAMI = new File(Reference.modsFolder.getAbsolutePath() + "/" + Reference.KAMIFilename + EXTENSION);
+		
+		for (File f : jars)
+		{
+			if (f != null && removedTT.exists())
+			{
+				removedTT.delete();
+			}
+			if (f != null && removedKAMI.exists())
+			{
+				removedKAMI.delete();
+			}
+		}
 	}
 }

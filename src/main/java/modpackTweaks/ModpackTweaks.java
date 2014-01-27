@@ -91,6 +91,6 @@ public class ModpackTweaks
 	@EventHandler
 	public void onFMLServerStart(FMLServerStartingEvent event)
 	{
-		// TODO event.registerServerCommand(new CommandTPPI());
+		event.registerServerCommand(new CommandModpackTweaks());
 	}
 }

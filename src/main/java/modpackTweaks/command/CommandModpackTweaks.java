@@ -42,14 +42,7 @@ public class CommandModpackTweaks extends CommandBase
 		commandName = ConfigurationHandler.commandName;
 
 		validCommands.add("download");
-		validCommands.add("mods");
-		validCommands.add("ores");
-		validCommands.add("getInvolved");
 		validCommands.add("changelog");
-
-		supportedModsAndList.add("list");
-
-		supportedModsAndList.addAll(TxtParser.getSupportedMods(file));
 	}
 
 	public static void addProperNameMapping(String argName, String properName)

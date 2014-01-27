@@ -5,10 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import modpackTweaks.ModpackTweaks;
+import modpackTweaks.client.gui.ModDownload;
 import modpackTweaks.config.ConfigurationHandler;
 
 public class FileLoader
@@ -160,5 +163,29 @@ public class FileLoader
 	{
 		supportedMods = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/SupportedMods.txt");
 		return supportedMods;
+	}
+	
+	public static List<ModDownload> getDownloadMods() throws FileNotFoundException
+	{
+		FileInputStream modDownloadFile = new FileInputStream(new File(ConfigurationHandler.cfg.getParent() + "/downloadMods.txt"));
+		
+		Scanner scan = new Scanner(modDownloadFile);
+		
+		for (int i = 0; i < 5; i++)
+		{
+			scan.next();
+		}
+		List<ModDownload> mods = new ArrayList<ModDownload>();
+		while (scan.hasNext())
+		{
+			String name, url, modid;
+			name = scan.nextLine();
+			url = scan.nextLine();
+			modid = scan.nextLine();
+			
+			mods.add(new ModDownload(name, url, modid));
+		}
+		
+		return mods;
 	}
 }

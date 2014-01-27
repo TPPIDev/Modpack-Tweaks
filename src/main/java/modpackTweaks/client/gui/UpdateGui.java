@@ -1,11 +1,12 @@
 package modpackTweaks.client.gui;
 
-import java.awt.Desktop;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
+import modpackTweaks.util.FileLoader;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -21,18 +22,29 @@ public class UpdateGui extends GuiScreen
 {
 	protected GuiScreen parentScreen;
 	private boolean noShow = true, firstTime;
-
+	
+	List<ModDownload> mods;
 	List<InstructionsGui> modScreens = new ArrayList<InstructionsGui>();
 	Iterator<InstructionsGui> iterator;
 
 	public void initModInstallationMenus()
 	{
-
-		if (!Loader.isModLoaded("Thaumcraft"))
-			modScreens.add(new InstructionsGui(new ModDownload("Thaumcraft 4", "http://adf.ly/1311628/thaumcraft-4", "Thaumcraft")));
-
-		if (!Loader.isModLoaded("TwilightForest"))
-			modScreens.add(new InstructionsGui(new ModDownload("Twilight Forest", "http://adf.ly/Zvi5J", "TwilightForest")));
+		try
+		{
+			mods = FileLoader.getDownloadMods();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+			System.out.println("The mod download configuration file could not be found");
+			return;
+		}
+		
+		for (ModDownload mod : mods)
+		{
+			if (Loader.isModLoaded(mod.modid))
+				modScreens.add(new InstructionsGui(mod));
+		}
 		
 		iterator = modScreens.iterator();
 	}

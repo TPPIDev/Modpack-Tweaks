@@ -1,10 +1,9 @@
 package modpackTweaks.client.gui;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import modpackTweaks.util.FileLoader;
 import net.minecraft.client.gui.GuiButton;
@@ -16,7 +15,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
 public class UpdateGui extends GuiScreen
 {
@@ -33,16 +31,22 @@ public class UpdateGui extends GuiScreen
 		{
 			mods = FileLoader.getDownloadMods();
 		}
-		catch (FileNotFoundException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			System.out.println("The mod download configuration file could not be found");
 			return;
 		}
 		
+		if (mods.size() == 0)
+		{
+			System.out.println("No mods to download, or you have not configured this!");
+			return;
+		}
+
 		for (ModDownload mod : mods)
 		{
-			if (Loader.isModLoaded(mod.modid))
+			if (!Loader.isModLoaded(mod.modid))
 				modScreens.add(new InstructionsGui(mod));
 		}
 		

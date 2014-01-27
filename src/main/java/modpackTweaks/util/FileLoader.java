@@ -3,6 +3,7 @@ package modpackTweaks.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -165,18 +166,27 @@ public class FileLoader
 		return supportedMods;
 	}
 	
-	public static List<ModDownload> getDownloadMods() throws FileNotFoundException
+	public static List<ModDownload> getDownloadMods() throws IOException
 	{
+		File file = new File(ConfigurationHandler.cfg.getParent() + "/downloadMods.txt");
+		
+		if (!file.exists())
+		{
+			file.createNewFile();
+			populateFile(file);
+		}
+		
 		FileInputStream modDownloadFile = new FileInputStream(new File(ConfigurationHandler.cfg.getParent() + "/downloadMods.txt"));
 		
 		Scanner scan = new Scanner(modDownloadFile);
 		
 		for (int i = 0; i < 5; i++)
 		{
-			scan.next();
+			if (scan.hasNextLine())
+				scan.nextLine();
 		}
 		List<ModDownload> mods = new ArrayList<ModDownload>();
-		while (scan.hasNext())
+		while (scan.hasNextLine())
 		{
 			String name, url, modid;
 			name = scan.nextLine();
@@ -184,8 +194,27 @@ public class FileLoader
 			modid = scan.nextLine();
 			
 			mods.add(new ModDownload(name, url, modid));
+			
+			if (scan.hasNextLine())
+				scan.nextLine();
 		}
-		
+		scan.close();
 		return mods;
+	}
+	
+	private static void populateFile(File file) throws IOException
+	{
+		InputStream defaultFile = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/downloadMods.txt");
+		
+		Scanner scan = new Scanner(defaultFile);
+		String path = file.getCanonicalPath();
+		FileWriter fw = new FileWriter(path);
+		while (scan.hasNextLine())
+		{
+			fw.write(scan.nextLine() + "\n");
+		}
+		fw.flush();
+		fw.close();
+		scan.close();
 	}
 }

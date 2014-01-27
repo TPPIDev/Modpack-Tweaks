@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import sun.security.krb5.Config;
 import modpackTweaks.ModpackTweaks;
 import modpackTweaks.config.ConfigurationHandler;
 import modpackTweaks.item.ModItems;
@@ -126,6 +125,7 @@ public class CommandModpackTweaks extends CommandBase
 	}
 
 	// Use this to add vanilla books
+	@SuppressWarnings("unused")
 	private void processVanillaBookCommand(String title, String textFileName, ICommandSender command, String[] astring)
 	{
 
@@ -186,6 +186,7 @@ public class CommandModpackTweaks extends CommandBase
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	private void listMods(ICommandSender icommandsender)
 	{
 		String s = "";
@@ -202,6 +203,7 @@ public class CommandModpackTweaks extends CommandBase
 		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(s));
 	}
 
+	@SuppressWarnings("unused")
 	private void giveModBook(String modName, ICommandSender command)
 	{
 		String properName = modProperNames.get(modName);

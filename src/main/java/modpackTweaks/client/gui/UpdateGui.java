@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import modpackTweaks.config.ConfigurationHandler;
 import modpackTweaks.util.FileLoader;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -24,6 +25,8 @@ public class UpdateGui extends GuiScreen
 	List<ModDownload> mods;
 	List<InstructionsGui> modScreens = new ArrayList<InstructionsGui>();
 	Iterator<InstructionsGui> iterator;
+	
+	private String name;
 
 	public void initModInstallationMenus()
 	{
@@ -55,6 +58,8 @@ public class UpdateGui extends GuiScreen
 
 	public UpdateGui(GuiScreen parentScreen, boolean firstTime)
 	{
+		name = ConfigurationHandler.organizationName;
+		
 		this.parentScreen = parentScreen;
 
 		initModInstallationMenus();
@@ -132,7 +137,7 @@ public class UpdateGui extends GuiScreen
 				}
 				catch (Exception e)
 				{
-					System.err.println("Error opening webpage, please contact TPPI Team.");
+					System.err.println("Error opening webpage, please contact " + name + " Team.");
 					e.printStackTrace();
 				}
 			}
@@ -153,15 +158,15 @@ public class UpdateGui extends GuiScreen
 
 			if (firstTime)
 			{
-				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting TPPI. Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the TPPI Tweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/tppi download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting. Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the " + name + " Tweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/" + ConfigurationHandler.commandName + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
 			}
 
 			this.drawCenteredString(this.fontRenderer, "As it turns out, there are some mods we really wanted to include,", this.width / 2, this.height / 2 - 80, 0xFFFFFF);
 			this.drawCenteredString(this.fontRenderer, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
 			this.drawCenteredString(this.fontRenderer, "Though we had to leave them out, we built this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "help you all add them manually, to gain what we feel is the full TPPI experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
+			this.drawCenteredString(this.fontRenderer, "help you all add them manually, to gain what we feel is the full " + name + " experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
 			
 		}
 

@@ -36,6 +36,7 @@ public class ConfigurationHandler
 	public static List<String> bookText;
 	public static List<String> changelog;
 	public static String commandName;
+	public static String organizationName;
 
 
 	public static void init(File file)
@@ -52,6 +53,8 @@ public class ConfigurationHandler
 		changelogTitle = config.get("Guide Info", "changelogTitle", "Changelog", "The title of the changelog").getString();
 		
 		commandName = config.get("Command Info", "commandName", "modpackTweaks", "The first word used in the in-game command").getString();
+		
+		organizationName = config.get("Organization Info", "organizationName", "Modpack Tweaks", "The name of your organization to be displayed on all GUIs").getString();
 		
 		autoEnableTT = config.get("Mod Loading Tweaks", "autoEnableTT", true, "Allow this mod to disable and enable Thaumic Tinkerer automatically").getBoolean(true);
 		

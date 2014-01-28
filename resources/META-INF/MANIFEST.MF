@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-FMLCorePlugin: tppitweaks.core.CoreMT
+FMLCorePlugin: modpackTweaks.core.CoreMT
 FMLCorePluginContainsFMLMod: true
 

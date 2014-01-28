@@ -158,7 +158,7 @@ public class UpdateGui extends GuiScreen
 
 			if (firstTime)
 			{
-				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting. Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting "+ name + ". Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
 				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the " + name + " Tweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
 				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/" + ConfigurationHandler.commandName + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
 			}

@@ -30,7 +30,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ModpackTweaks
 {
 
-	public static final String VERSION = "0.1.0";
+	public static final String VERSION = "0.2.0";
 
 	@Instance
 	public static ModpackTweaks instance;

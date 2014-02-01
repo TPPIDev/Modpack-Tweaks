@@ -42,6 +42,11 @@ public class CommandModpackTweaks extends CommandBase
 
 		validCommands.add("download");
 		validCommands.add("changelog");
+		validCommands.add("mods");
+		
+		supportedModsAndList.add("list");
+
+		supportedModsAndList.addAll(TxtParser.getSupportedMods(file));
 	}
 
 	public static void addProperNameMapping(String argName, String properName)
@@ -101,6 +106,8 @@ public class CommandModpackTweaks extends CommandBase
 				if (!processCommandDownload(icommandsender, astring))
 					System.err.println("Invalid Player");
 			}
+			else if (astring[0].equalsIgnoreCase("mods"))
+				processCommandMods(icommandsender, astring);
 			else if (astring[0].equalsIgnoreCase("changelog"))
 			{
 				processCommandChangelog(icommandsender);
@@ -186,24 +193,55 @@ public class CommandModpackTweaks extends CommandBase
 		return true;
 	}
 
-	@SuppressWarnings("unused")
 	private void listMods(ICommandSender icommandsender)
 	{
 		String s = "";
-
+		String total = "";
+		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Listing mods:\n"));
 		for (int i = 1; i < supportedModsAndList.size(); i++)
 		{
 			s += supportedModsAndList.get(i);
 			if (i < supportedModsAndList.size() - 1)
 				s += ", ";
-			if (i % 4 == 0)
-				s += "\n";
+			if (s.length() > 40)
+			{
+				total += s + "\n";
+				s = "";
+			}
 		}
 
-		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(s));
+		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(total));
 	}
 
-	@SuppressWarnings("unused")
+	private boolean processCommandMods(ICommandSender command, String[] args)
+	{
+		if (args.length == 2)
+		{
+			if (args[1].equals("list"))
+			{
+				listMods(command);
+				return true;
+			}
+			else if (supportedModsAndList.contains(args[1]))
+			{
+				giveModBook(args[1], command);
+			}
+			else
+			{
+				command.sendChatToPlayer(new ChatMessageComponent().addText("Valid mod names:"));
+				listMods(command);
+			}
+
+		}
+		else
+		{
+			command.sendChatToPlayer(new ChatMessageComponent().addText("Proper Usage: /tppi mods <modname>"));
+			command.sendChatToPlayer(new ChatMessageComponent().addText("or /tppi mods list to see valid names."));
+		}
+
+		return false;
+	}
+	
 	private void giveModBook(String modName, ICommandSender command)
 	{
 		String properName = modProperNames.get(modName);

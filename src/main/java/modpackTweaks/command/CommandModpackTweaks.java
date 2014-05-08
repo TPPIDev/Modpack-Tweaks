@@ -14,6 +14,7 @@ import modpackTweaks.lib.Reference;
 import modpackTweaks.util.FileLoader;
 import modpackTweaks.util.TxtParser;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,7 +44,7 @@ public class CommandModpackTweaks extends CommandBase
 		validCommands.add("download");
 		validCommands.add("changelog");
 		validCommands.add("mods");
-		
+
 		supportedModsAndList.add("list");
 
 		supportedModsAndList.addAll(TxtParser.getSupportedMods(file));
@@ -241,7 +242,7 @@ public class CommandModpackTweaks extends CommandBase
 
 		return false;
 	}
-	
+
 	private void giveModBook(String modName, ICommandSender command)
 	{
 		String properName = modProperNames.get(modName);
@@ -255,13 +256,8 @@ public class CommandModpackTweaks extends CommandBase
 		NBTTagList bookPages = new NBTTagList("pages");
 
 		ArrayList<String> pages;
-		// try
-		// {
+
 		pages = TxtParser.parseFileMods(FileLoader.getSupportedMods(), modName + ", " + properName);
-		/*
-		 * } catch (FileNotFoundException e) { pages = new ArrayList<String>();
-		 * e.printStackTrace(); }
-		 */
 
 		if (pages.get(0).startsWith("<") && pages.get(0).endsWith("> "))
 		{
@@ -280,4 +276,16 @@ public class CommandModpackTweaks extends CommandBase
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(stack, 0);
 	}
 
+	@Override
+	public int compareTo(Object o)
+	{
+		if (o instanceof ICommand)
+		{
+			return this.compareTo((ICommand) o);
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }

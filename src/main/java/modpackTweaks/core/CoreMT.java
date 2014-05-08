@@ -11,14 +11,6 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 public class CoreMT implements IFMLLoadingPlugin
 {
-
-	@Override
-	@Deprecated
-	public String[] getLibraryRequestClass()
-	{
-		return null;
-	}
-
 	@Override
 	public String[] getASMTransformerClass()
 	{

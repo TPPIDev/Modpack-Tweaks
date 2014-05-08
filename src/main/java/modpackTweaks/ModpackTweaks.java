@@ -25,7 +25,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "ModpackTweaks", name = "Modpack Tweaks", version = ModpackTweaks.VERSION)
+@Mod(modid = "modpacktweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION)
 @NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL }, packetHandler = PacketHandler.class)
 public class ModpackTweaks
 {

@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +131,15 @@ public class ConfigurationHandler
 	private static void copyJsonFromJar(String filename, File to) throws IOException
 	{
 		System.out.println("Copying file " + filename + " from jar");
-		File jsonFile = new File(ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename).getPath());
+		File jsonFile = null;
+		try
+		{
+			jsonFile = new File(ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename).toURI().getPath());
+		}
+		catch (URISyntaxException e)
+		{
+			e.printStackTrace();
+		}
 		FileUtils.copyFile(jsonFile, to);
 	}
 

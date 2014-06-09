@@ -12,15 +12,16 @@ import modpacktweaks.event.ModEventHandler;
 import modpacktweaks.event.PlayerTracker;
 import modpacktweaks.item.ModItems;
 import modpacktweaks.lib.Reference;
+import modpacktweaks.proxy.CommonProxy;
 import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import cofh.network.PacketHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -37,8 +38,8 @@ public class ModpackTweaks
 	@Instance
 	public static ModpackTweaks instance;
 
-//	@SidedProxy(clientSide = "tppitweaks.proxy.ClientProxy", serverSide = "tppitweaks.proxy.CommonProxy")
-//	public static CommonProxy proxy;
+	@SidedProxy(clientSide = "modpacktweaks.proxy.ClientProxy", serverSide = "modpacktweaks.proxy.CommonProxy")
+	public static CommonProxy proxy;
 
 	public static ModEventHandler eventHandler;
 	public static PlayerTracker playerTracker;
@@ -59,7 +60,8 @@ public class ModpackTweaks
 		logger.setParent(FMLCommonHandler.instance().getFMLLogger());
 		
 		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/modpackTweaks/modpackTweaks.cfg"));
-
+		ConfigurationHandler.loadClientsideJson();
+		
 		try
 		{
 			FileLoader.init(ConfigurationHandler.cfg, 0);
@@ -87,10 +89,6 @@ public class ModpackTweaks
 		eventHandler = new ModEventHandler();
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 		ModItems.registerRecipes();
-
-		if (event.getSide().isClient()){
-//			proxy.initTickHandler();
-		}
 	}
 
 	@EventHandler

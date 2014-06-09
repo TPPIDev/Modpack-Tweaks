@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
+import modpacktweaks.client.gui.GuiHelper;
+import modpacktweaks.client.gui.UpdateGui;
 import modpacktweaks.config.ConfigurationHandler;
-import modpacktweaks.lib.Reference;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,45 +27,58 @@ public class ModEventHandler
 	public static boolean NBTValOnDeath;
 	private String name, version, acronym;
 
+	public boolean shouldLoadGUI;
+
 	@SideOnly(Side.CLIENT)
 	@ForgeSubscribe
 	public void onGui(GuiOpenEvent event)
 	{
 		if (event.gui instanceof GuiMainMenu)
 		{
-			name = ConfigurationHandler.packName;
-			version = ConfigurationHandler.packVersion;
-			acronym = ConfigurationHandler.packAcronym;
+			if (ConfigurationHandler.shouldLoadGUI && ConfigurationHandler.showDownloadGUI)
+			{
+				event.gui = new UpdateGui(event.gui, true);
+				GuiHelper.updateGui = (UpdateGui) event.gui;
+				shouldLoadGUI = false;
 
-			Field f = null;
-			try
-			{
-				f = FMLCommonHandler.class.getDeclaredField("brandings");
+				ConfigurationHandler.manuallyChangeConfigValue("B:showDownloadGUI", "true", "false");
 			}
-			catch (Exception e)
+			else
 			{
-				e.printStackTrace();
-				ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
-				return;
-			}
+				name = ConfigurationHandler.packName;
+				version = ConfigurationHandler.packVersion;
+				acronym = ConfigurationHandler.packAcronym;
 
-			f.setAccessible(true);
-			try
-			{
-				if (f.get(FMLCommonHandler.instance()) == null)
+				Field f = null;
+				try
 				{
-					FMLCommonHandler.instance().computeBranding();
-					doThisAgain();
+					f = FMLCommonHandler.class.getDeclaredField("brandings");
 				}
-				else
+				catch (Exception e)
 				{
-					addStuff(f);
+					e.printStackTrace();
+					ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+					return;
 				}
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-				ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+
+				f.setAccessible(true);
+				try
+				{
+					if (f.get(FMLCommonHandler.instance()) == null)
+					{
+						FMLCommonHandler.instance().computeBranding();
+						doThisAgain();
+					}
+					else
+					{
+						addStuff(f);
+					}
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+					ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+				}
 			}
 		}
 	}

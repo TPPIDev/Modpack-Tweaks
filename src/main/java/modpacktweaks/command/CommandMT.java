@@ -166,32 +166,6 @@ public class CommandMT extends CommandBase
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(stack, 0);
 	}
 
-	private void processVanillaBookCommand(String title, String textFileName, ICommandSender command, String[] astring)
-	{
-
-		InputStream file = ModpackTweaks.class.getResourceAsStream("/assets/modpacktweaks/lang/" + textFileName);
-		List<String> vanillaBookText = file == null ? new ArrayList<String>() : TxtParser.parseFileMain(file);
-		ItemStack book = new ItemStack(Item.writtenBook);
-
-		book.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
-		book.setTagInfo("title", new NBTTagString("title", title));
-
-		NBTTagCompound nbttagcompound = book.getTagCompound();
-		NBTTagList bookPages = new NBTTagList("pages");
-
-		for (int i = 0; i < vanillaBookText.size(); i++)
-		{
-			bookPages.appendTag(new NBTTagString("" + i, vanillaBookText.get(i)));
-		}
-
-		nbttagcompound.setTag("pages", bookPages);
-		nbttagcompound.setString("version", ModpackTweaks.VERSION);
-
-		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(book))
-			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(book, 0);
-
-	}
-
 	private boolean processCommandMods(ICommandSender command, String[] args)
 	{
 		if (args.length == 2)

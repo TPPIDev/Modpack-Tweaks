@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Garrett/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.8/jar/d4c0895977dd7f0b3f56281cee53a64d4c0c0322/launchwrapper-1.8.jar" sourcepath="C:/Users/Garrett/.gradle/caches/artifacts-26/filestore/net.minecraft/launchwrapper/1.8/source/80761bb83b7a8fe0b20ced886f8864a613826e21/launchwrapper-1.8-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Garrett/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/4.1/jar/dd6ba5c392d4102458494e29f54f70ac534ec2a2/asm-debug-all-4.1.jar" sourcepath="C:/Users/Garrett/.gradle/caches/artifacts-26/filestore/org.ow2.asm/asm-debug-all/4.1/source/1c218d5a0b8b932a1528b74069aa6973dcfcea74/asm-debug-all-4.1-sources.jar">
 		<attributes>
@@ -128,5 +128,7 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/Garrett/.gradle/caches/artifacts-26/filestore/net.minecraftforge/forge/1.6.4-9.11.1.964/zip/23b2a714525af51ba6c596144c1a7492c8548d1c/forge-1.6.4-9.11.1.964-javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/EnderIO/lib/NotEnoughItems-dev 1.6.1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="E:/Development/Let&apos;s Mod/development/eclipse/TPPI-Tweaks/libs/CoFHCore-2.0.0.0_deobf.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

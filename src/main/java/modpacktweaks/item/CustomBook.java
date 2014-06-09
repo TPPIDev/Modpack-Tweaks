@@ -36,7 +36,7 @@ public class CustomBook extends ItemEditableBook
 	@Override
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		icons[0] = par1IconRegister.registerIcon("modpacktweaks:" + (Loader.isModLoaded("TPPITweaks") && !ConfigurationHandler.neverTPPITexture || ConfigurationHandler.forceTPPITexture ? "TPPIBook" : "book" + ConfigurationHandler.bookTexture));
+		icons[0] = par1IconRegister.registerIcon("modpacktweaks:" + (Loader.isModLoaded("TPPITweaks") && !ConfigurationHandler.neverTPPITexture || ConfigurationHandler.forceTPPITexture ? "tppiBook" : "book" + ConfigurationHandler.bookTexture));
 		icons[1] = Item.writtenBook.getIconFromDamage(0);
 		icons[2] = par1IconRegister.registerIcon(ConfigurationHandler.guideSkin == 0 ? "modpacktweaks:guide1" : "modpacktweaks:guide2");
 	}

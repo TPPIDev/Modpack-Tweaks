@@ -95,9 +95,9 @@ public class ConfigurationHandler
 		autoUpdateBooks = config
 				.get("Other options",
 						"autoUpdateBooks",
-						true,
+						false,
 						"Whether (custom) books will update on right click. NOTE: This only works with CUSTOM books, not vanilla written books. Also, this is for debug purposes only, it can cause severe I/O lag in normal play.")
-				.getBoolean(true);
+				.getBoolean(false);
 
 		config.save();
 		

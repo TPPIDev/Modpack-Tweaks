@@ -97,7 +97,7 @@ public class UpdateGui extends GuiScreen
 					/*
 					else if (configGui != null)
 					{
-						File file=new File("config/TPPI/config/hardconfig.zip");
+						File file=new File("config/modpackTweaks/config/hardconfig.zip");
 						if (file.exists())	this.mc.displayGuiScreen(configGui);
 						configGui = null;
 					}
@@ -113,7 +113,7 @@ public class UpdateGui extends GuiScreen
 				}
 				catch (Exception e)
 				{
-					ModpackTweaks.logger.log(Level.SEVERE, "Error opening webpage, please contact TPPI Team.");
+					ModpackTweaks.logger.log(Level.SEVERE, "Error opening webpage, please contact your modpack author.");
 					e.printStackTrace();
 				}
 			}
@@ -134,15 +134,15 @@ public class UpdateGui extends GuiScreen
 
 			if (firstTime)
 			{
-				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting TPPI. Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the TPPI Tweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/tppi download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting " + ConfigurationHandler.packName + ". Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the ModpackTweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
+				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/" + ConfigurationHandler.packAcronym + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
 			}
 
 			this.drawCenteredString(this.fontRenderer, "As it turns out, there are some mods we really wanted to include,", this.width / 2, this.height / 2 - 80, 0xFFFFFF);
 			this.drawCenteredString(this.fontRenderer, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "Though we had to leave them out, we built this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "help you all add them manually, to gain what we feel is the full TPPI experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
+			this.drawCenteredString(this.fontRenderer, "Though we had to leave them out, you may use this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
+			this.drawCenteredString(this.fontRenderer, "help add them manually, to gain what we feel is the full experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
 			
 		}
 

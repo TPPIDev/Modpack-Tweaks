@@ -20,8 +20,6 @@ public interface IGuiBase
 
     public void drawElements();
 
-    public void drawTabs();
-
     public ElementBase getElementAtPosition(int mouseX, int mouseY);
 
     public FontRenderer getFontRenderer();

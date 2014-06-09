@@ -3,7 +3,6 @@ package modpacktweaks.client.gui.library.gui.element;
 import java.util.ArrayList;
 import java.util.List;
 
-import modpacktweaks.client.gui.library.gui.GuiBaseContainer;
 import modpacktweaks.client.gui.library.gui.IGuiBase;
 import modpacktweaks.client.gui.library.gui.utils.GuiUtils;
 import net.minecraft.client.audio.SoundManager;

@@ -21,8 +21,6 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import cofh.gui.element.TabBase;
-
 /**
  * A modular gui without the need for an inventory. This should be used instead of {@link GuiBaseContainer} if you do not require an inventory to be displayed on the screen.
  * 
@@ -46,7 +44,6 @@ public class GuiBase extends GuiScreen implements IGuiBase
 
     protected String name;
     protected ResourceLocation texture;
-    protected ArrayList<TabBase> tabs = new ArrayList<TabBase>();
     protected ArrayList<ElementBase> elements = new ArrayList<ElementBase>();
     protected List<String> tooltip = new LinkedList<String>();
 
@@ -118,7 +115,6 @@ public class GuiBase extends GuiScreen implements IGuiBase
 
         drawBackgroundTexture();
         drawElements();
-        drawTabs();
     }
 
     public void drawGuiForegroundLayer(int mouseX, int mouseY)
@@ -174,33 +170,6 @@ public class GuiBase extends GuiScreen implements IGuiBase
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         RenderHelper.enableStandardItemLighting();
-    }
-
-    @Override
-    public void drawTabs()
-    {
-        int yPosRight = 4;
-        int yPosLeft = 4;
-
-        for (TabBase tab : tabs)
-        {
-            tab.update();
-
-            if (tab.isVisible())
-            {
-                if (tab.side == 0)
-                {
-                    tab.draw(guiLeft, guiTop + yPosLeft);
-                    yPosLeft += tab.currentHeight;
-                }
-                else
-                {
-                    tab.draw(guiLeft + xSize, guiTop + yPosRight);
-                    yPosRight += tab.currentHeight;
-                }
-            }
-        }
-
     }
 
     @Override
@@ -302,7 +271,6 @@ public class GuiBase extends GuiScreen implements IGuiBase
         guiLeft = (width - xSize) / 2;
         guiTop = (height - ySize) / 2;
 
-        tabs.clear();
         elements.clear();
         buttonList.clear();
 

@@ -59,7 +59,7 @@ public class CustomBook extends ItemEditableBook
 		{
 			GuiHelper.doGuideGUI();
 		}
-		else if (stack.stackTagCompound == null || !stack.getTagCompound().getString("version").equals(ModpackTweaks.VERSION) || stack.getItemDamage() == 1)
+		else if (stack.getItemDamage() != 2 && (ConfigurationHandler.autoUpdateBooks || stack.stackTagCompound == null || !stack.getTagCompound().getString("version").equals(ModpackTweaks.VERSION)))
 		{
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
 			{

@@ -56,6 +56,8 @@ public class ConfigurationHandler
 
 	public static boolean shouldLoadGUI = true;
 
+	public static boolean autoUpdateBooks;
+
 	public static void init(File file)
 	{
 		cfg = file;
@@ -78,6 +80,13 @@ public class ConfigurationHandler
 		packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
 		packVersion = config.get("Pack Info", "packVersion", "0.0.0", "The version of the modpack").getString();
 		packAcronym = config.get("Pack Info", "packAcronym", "reallyLongAcronymSoYouDontForget", "The acronym of the modpack").getString();
+
+		autoUpdateBooks = config
+				.get("Other options",
+						"autoUpdateBooks",
+						true,
+						"Whether (custom) books will update on right click. NOTE: This only works with CUSTOM books, not vanilla written books. Also, this is for debug purposes only, it can cause severe I/O lag in normal play.")
+				.getBoolean(true);
 
 		config.save();
 	}
@@ -121,7 +130,7 @@ public class ConfigurationHandler
 	private static void copyJsonFromJar(String filename, File to) throws IOException
 	{
 		System.out.println("Copying file " + filename + " from jar");
-		File jsonFile = new File(ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename).getFile());
+		File jsonFile = new File(ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename).getPath());
 		FileUtils.copyFile(jsonFile, to);
 	}
 

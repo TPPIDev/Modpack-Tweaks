@@ -143,7 +143,6 @@ public class UpdateGui extends GuiScreen
 			this.drawCenteredString(this.fontRenderer, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
 			this.drawCenteredString(this.fontRenderer, "Though we had to leave them out, you may use this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
 			this.drawCenteredString(this.fontRenderer, "help add them manually, to gain what we feel is the full experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
-			
 		}
 
 		super.drawScreen(par1, par2, par3);

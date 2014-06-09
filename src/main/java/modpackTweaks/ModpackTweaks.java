@@ -1,20 +1,23 @@
-package modpackTweaks;
+package modpacktweaks;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Logger;
 
-import modpackTweaks.command.CommandModpackTweaks;
-import modpackTweaks.config.ConfigurationHandler;
-import modpackTweaks.creativeTab.CreativeTabModpackTweaks;
-import modpackTweaks.event.MTEventHandler;
-import modpackTweaks.item.ModItems;
-import modpackTweaks.lib.Reference;
-import modpackTweaks.proxy.PacketHandler;
-import modpackTweaks.util.FileLoader;
-import modpackTweaks.util.MTPlayerTracker;
+import modpacktweaks.client.gui.GuiHelper;
+import modpacktweaks.command.CommandMT;
+import modpacktweaks.config.ConfigurationHandler;
+import modpacktweaks.event.ModEventHandler;
+import modpacktweaks.event.PlayerTracker;
+import modpacktweaks.item.ModItems;
+import modpacktweaks.lib.Reference;
+import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import cofh.network.PacketHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -25,25 +28,37 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "modpacktweaks", name = "Modpack Tweaks", version = ModpackTweaks.VERSION)
-@NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL }, packetHandler = PacketHandler.class)
+@Mod(modid = "modpackTweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:NotEnoughItems;after:ThermalExpansion")
+@NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL })
 public class ModpackTweaks
 {
-
-	public static final String VERSION = "0.2.0";
+	public static final String VERSION = "0.1.0";
 
 	@Instance
 	public static ModpackTweaks instance;
 
-	public static MTEventHandler eventHandler;
-	public static MTPlayerTracker playerTracker;
+//	@SidedProxy(clientSide = "tppitweaks.proxy.ClientProxy", serverSide = "tppitweaks.proxy.CommonProxy")
+//	public static CommonProxy proxy;
 
-	public static CreativeTabModpackTweaks creativeTab = new CreativeTabModpackTweaks(CreativeTabs.getNextID());
+	public static ModEventHandler eventHandler;
+	public static PlayerTracker playerTracker;
+
+	public static final Logger logger = Logger.getLogger("ModpackTweaks");
+
+	public static CreativeTabs creativeTab = new CreativeTabs("tabMT")
+	{
+		public net.minecraft.item.ItemStack getIconItemStack() 
+		{
+			return new ItemStack(ModItems.book, 1, 0);
+		}
+	};
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/ModpackTweaks/ModpackTweaks.cfg"));
+		logger.setParent(FMLCommonHandler.instance().getFMLLogger());
+		
+		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/modpackTweaks/modpackTweaks.cfg"));
 
 		try
 		{
@@ -55,42 +70,48 @@ public class ModpackTweaks
 		}
 
 		ConfigurationHandler.loadGuideText(FileLoader.getGuideText());
-		try
-		{
-			ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText());
-		}
-		catch (FileNotFoundException e)
-		{
-			System.err.println("Changelog not found, please check the ModpackTweaks config folder.");
-		}
+		ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText());
 
-		CommandModpackTweaks.initValidCommandArguments(FileLoader.getSupportedMods());
+		CommandMT.initValidCommandArguments(FileLoader.getSupportedModsFile());
 
 		ModItems.initItems();
 
-		playerTracker = new MTPlayerTracker();
+		playerTracker = new PlayerTracker();
 		GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
-
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		eventHandler = new MTEventHandler();
+		eventHandler = new ModEventHandler();
 		MinecraftForge.EVENT_BUS.register(eventHandler);
 		ModItems.registerRecipes();
+
+		if (event.getSide().isClient()){
+//			proxy.initTickHandler();
+		}
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		// RecipeTweaks.doRecipeTweaks();
+		if (FMLCommonHandler.instance().getSide().isClient())
+		{
+			try
+			{
+				GuiHelper.initMap();
+			}
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@EventHandler
 	public void onFMLServerStart(FMLServerStartingEvent event)
 	{
-		event.registerServerCommand(new CommandModpackTweaks());
+		event.registerServerCommand(new CommandMT());
 	}
 }

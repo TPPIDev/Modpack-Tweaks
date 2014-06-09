@@ -1,8 +1,0 @@
-This is the file that ModpackTweaks reads mod download information from
-Addition of mods is very simple, just use 3 lines to put the:
-(1) formal name, (2) url, and (3) the mod ID, then a blank line after that, starting the first line after the dashes.
-The mod ID must match exactly, check the mcmod.info or source code of the mod in question to find the modid.
---------------------------------------------------------------------------------------
-Thaumcraft 4
-http://google.com
-Thaumcraft

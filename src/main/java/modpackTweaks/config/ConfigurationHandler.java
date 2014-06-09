@@ -1,17 +1,19 @@
-package modpackTweaks.config;
+package modpacktweaks.config;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
-import modpackTweaks.lib.Reference;
-import modpackTweaks.util.TxtParser;
+import modpacktweaks.ModpackTweaks;
+import modpacktweaks.util.TxtParser;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property.Type;
 
@@ -20,49 +22,45 @@ public class ConfigurationHandler
 
 	public static HashMap<String, Boolean> am2SpawnControls = new HashMap<String, Boolean>();
 	public static int bookID;
-	public static int materialID;
 	
 	public static String bookTitle;
 	public static String bookAuthor;
 	public static String changelogTitle;
-
-	public static boolean showDownloadGUI;
+	public static String supportedModsName;
+	public static int guideSkin;
 	
-	public static boolean autoEnableTT;
-	
+	public static boolean doSpawnBook;
+		
 	public static File cfg;
 	
 	/** ArrayList of Strings, the strings are each one whole page **/
 	public static List<String> bookText;
 	public static List<String> changelog;
-	public static String commandName;
-	public static String organizationName;
-
-
+	
+	public static String packName;
+	public static String packVersion;
+	public static String packAcronym;
+	
 	public static void init(File file)
 	{
 		cfg = file;
 		
 		Configuration config = new Configuration(file);
 		config.load();
+
+		bookID = config.getItem("bookId", 21650).getInt() - 256;
 		
-		bookID = config.getItem("bookID", 21000).getInt() - 256;
+		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book", Type.STRING).getString();
+		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book", Type.STRING).getString();
+		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
+		supportedModsName = config.get("Guide Settings", "supportedModsFilename", "SupportedMods", "The file name of the file to read the mod documentation from (used to support translation). Do not include the extension in the filename (it is .txt)").getString();
+		guideSkin = config.get("Guide Settings", "GuideSkin", 0, "The skin of the guide GUI/item, 0=tech, 1=scroll").getInt();
+		doSpawnBook = config.get("Book Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
 		
-		bookTitle = config.get("Guide Info", "bookTitle", "Welcome Packet", "The title of the custom spawn book", Type.STRING).getString();
-		bookAuthor = config.get("Guide Info", "bookAuthor", "The Modpack Team", "The author of the custom spawn book", Type.STRING).getString();
-		changelogTitle = config.get("Guide Info", "changelogTitle", "Changelog", "The title of the changelog").getString();
-		
-		commandName = config.get("Command Info", "commandName", "modpackTweaks", "The first word used in the in-game command").getString();
-		
-		organizationName = config.get("Organization Info", "organizationName", "Modpack Tweaks", "The name of your organization to be displayed on all GUIs").getString();
-		
-		autoEnableTT = config.get("Mod Loading Tweaks", "autoEnableTT", true, "Allow this mod to disable and enable Thaumic Tinkerer automatically").getBoolean(true);
-		
-		Reference.thaumcraftFilename = config.get("Mod Loading Tweaks", "Thaumcraft_filename", Reference.DEFAULT_THAUMCRAFT_FILENAME, "The filename for Thaumcraft4 to use to check for its presence").getString();
-		Reference.TTFilename = config.get("Mod Loading Tweaks", "ThaumicTinkerer_filename", Reference.DEFAULT_TT_FILENAME, "The filename for Thaumic Tinkerer to use to check for its presence and disable/enable it automatically").getString();
-		Reference.KAMIFilename = config.get("Mod Loading Tweaks", "KAMI_filename", Reference.DEFAULT_KAMI_FILENAME, "The filename for KAMI to use to check for its presence and disable/enable it automatically").getString();
-		
-		
+		packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
+		packVersion = config.get("Pack Info", "packVersion", "0.0.0", "The version of the modpack").getString();
+		packAcronym = config.get("Pack Info", "packAcronym", "reallyLongAcronymSoYouDontForget", "The acronym of the modpack").getString();
+
 		config.save();
 	}
 
@@ -82,11 +80,34 @@ public class ConfigurationHandler
 		changelog = file == null ? new ArrayList<String>() : TxtParser.parseFileMain(file);
 	}
 
-	public static void stopShowingGUI()
+	/**
+	 * Sets a config value manually by editing the text file
+	 * @param prefix - The prefix of the config option (anything before '='), must match exactly.
+	 * @param from - The setting to change it from 
+	 * @param to - The setting to change it to
+	 * @return whether anything changed
+	 */
+	public static boolean manuallyChangeConfigValue(String prefix, String from, String to)
 	{
+		return manuallyChangeConfigValue(null, prefix, from, to);
+	}
+	
+	/**
+	 * Same as <code>manuallyChangeConfigValue(String, String, String)</code>, but with an additional parameter for <i>what</i> config file to edit
+	 * @param filePathFromConfigFolder - the full path to the files, including extensions, from inside config/
+	 * @param prefix - The prefix of the config option (anything before '='), must match exactly.
+	 * @param from - The setting to change it from
+	 * @param to - The setting to change it to
+	 * @return whether anything changed
+	 */
+	public static boolean manuallyChangeConfigValue(String filePathFromConfigFolder, String prefix, String from, String to)
+	{
+		File config = filePathFromConfigFolder == null ? cfg : new File(cfg.getParentFile().getParent() + "/" + filePathFromConfigFolder);
+		boolean found = false;
+
 		try
 		{
-			FileReader fr1 = new FileReader(cfg);
+			FileReader fr1 = new FileReader(config);
 			BufferedReader read = new BufferedReader(fr1);
 			
 			ArrayList<String> strings = new ArrayList<String>();
@@ -99,13 +120,17 @@ public class ConfigurationHandler
 			fr1.close();
 			read.close();
 			
-			FileWriter fw = new FileWriter(cfg);
+			FileWriter fw = new FileWriter(config);
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			for (String s : strings)
 			{
-				if (s.equals("    B:showDownloadGUI=true"))
-					s = "    B:showDownloadGUI=false";
+				if (!found && s.contains(prefix + "=" + from) && !s.contains("=" + to))
+				{
+					s = s.replace(prefix + "=" + from, prefix + "=" + to);
+					ModpackTweaks.logger.info("Successfully changed config value " + prefix + " from " + from + " to " + to); 
+					found = true;
+				}
 				
 				fw.write(s + "\n");
 			}	
@@ -113,9 +138,44 @@ public class ConfigurationHandler
 			bw.flush();
 			bw.close();
 		}
-		catch (Exception e)
+		catch (Throwable t)
 		{
-			e.printStackTrace();
+			t.printStackTrace();
 		}
+		
+		return found;
+	}
+	
+	/**
+	 * Finds the config value in the file specified (path starting after config/), and for the key specified
+	 * @param filePathFromConfigFolder - The path to the file, everything up to config/ is calculated for you
+	 * @param key - A key to find the value by, does not need to match exactly
+	 * @return A parseable string that can be transformed into any of the types of config values, for instance using <code>Boolean.parseBoolean(String)</code>
+	 */
+	public static String manuallyGetConfigValue(String filePathFromConfigFolder, String key) {
+		File config = new File(ConfigurationHandler.cfg.getParentFile().getParent() + "/" + filePathFromConfigFolder);
+		boolean noConfig = false;
+		Scanner scan = null;
+
+		try {
+			scan = new Scanner(config);
+		} catch (FileNotFoundException e) {
+			noConfig = true;
+		}	
+
+		if (noConfig)
+			return "";
+
+		while (scan.hasNext())
+		{
+			String s = scan.next();
+
+			if (s.contains(key))
+			{
+				scan.close();
+				return s.substring(s.indexOf("=") + 1, s.length());
+			}
+		}
+		return "";
 	}
 }

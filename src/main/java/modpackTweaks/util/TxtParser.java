@@ -1,10 +1,12 @@
-package modpackTweaks.util;
+package modpacktweaks.util;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
 
-import modpackTweaks.command.CommandModpackTweaks;
+import modpacktweaks.ModpackTweaks;
+import modpacktweaks.command.CommandMT;
 
 /**
  * Beware all ye who enter here, for the sake of your sanity, turn back
@@ -23,6 +25,8 @@ public class TxtParser
 	{
 		ArrayList<String> bookText = new ArrayList<String>();
 		useableLines.clear();
+		
+		if (file == null) return new ArrayList<String>();
 
 		Scanner scanner;
 		scanner = new Scanner(file);
@@ -56,7 +60,7 @@ public class TxtParser
 						}
 					}
 					else
-						System.err.println("Invalid line-skip in changelog. This may not work as intended");
+						ModpackTweaks.logger.log(Level.WARNING, "ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
 				}
 				// Finally, do not add this to the page
 				continue;
@@ -148,8 +152,11 @@ public class TxtParser
 		{
 			String temp = scanner.nextLine();
 			if (temp.startsWith(">") && temp.contains("<"))
-				if (temp.substring(1, temp.length() - 1).equals(modName))
+			{
+				String test = temp.substring(1, temp.length() - 1);
+				if (test.contains(modName))
 					break;
+			}
 		}
 			
 		while (scanner.hasNextLine())
@@ -181,7 +188,7 @@ public class TxtParser
 						}
 					}
 					else
-						System.err.println("Invalid line-skip in changelog. This may not work as intended");
+						ModpackTweaks.logger.log(Level.WARNING, "ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
 				}
 
 				// Finally, do not add this to the page
@@ -252,7 +259,7 @@ public class TxtParser
 			if (s.startsWith(">") && s.contains("<"))
 			{
 				String[] nameThatHasBeenSplit = s.substring(1, s.indexOf('<')).split(", ");
-				CommandModpackTweaks.addProperNameMapping(nameThatHasBeenSplit[0], nameThatHasBeenSplit[1]);
+				CommandMT.addProperNameMapping(nameThatHasBeenSplit[0], nameThatHasBeenSplit[1]);
 				mods.add(nameThatHasBeenSplit[0]);
 			}
 		}

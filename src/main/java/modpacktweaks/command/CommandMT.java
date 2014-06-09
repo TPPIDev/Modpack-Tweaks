@@ -25,6 +25,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -161,6 +162,7 @@ public class CommandMT extends CommandBase
 	private void processCommandGuide(ICommandSender command)
 	{
 		ItemStack stack = new ItemStack(ModItems.book, 1, 2);
+		stack.setTagInfo("title", new NBTTagString("title", (ConfigurationHandler.useAcronym ? ConfigurationHandler.packAcronym : ConfigurationHandler.packName) + " " + StatCollector.translateToLocal("item.guide.name")));
 
 		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(stack))
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(stack, 0);
@@ -222,8 +224,7 @@ public class CommandMT extends CommandBase
 		if (changelog == null)
 			return false;
 
-		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog))
-			;
+		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog));
 		command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(changelog, 0);
 
 		return true;

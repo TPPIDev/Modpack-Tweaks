@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 
 public class CustomBook extends ItemEditableBook
@@ -30,12 +31,12 @@ public class CustomBook extends ItemEditableBook
 	}
 
 	private Icon[] icons = new Icon[3];
-	private String[] unlocNames = {"welcomePacket", "changelog", "guide"};
+	private String[] unlocNames = {"item.welcomePacket", "item.changelog", "item.guide"};
 
 	@Override
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		icons[0] = par1IconRegister.registerIcon("modpacktweaks:book");
+		icons[0] = par1IconRegister.registerIcon("modpacktweaks:" + (Loader.isModLoaded("TPPITweaks") && !ConfigurationHandler.neverTPPITexture || ConfigurationHandler.forceTPPITexture ? "TPPIBook" : "book" + ConfigurationHandler.bookTexture));
 		icons[1] = Item.writtenBook.getIconFromDamage(0);
 		icons[2] = par1IconRegister.registerIcon(ConfigurationHandler.guideSkin == 0 ? "modpacktweaks:guide1" : "modpacktweaks:guide2");
 	}
@@ -161,7 +162,7 @@ public class CustomBook extends ItemEditableBook
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
-		return "item." + unlocNames[par1ItemStack.getItemDamage()];
+		return unlocNames[par1ItemStack.getItemDamage()];
 	}
 
 }

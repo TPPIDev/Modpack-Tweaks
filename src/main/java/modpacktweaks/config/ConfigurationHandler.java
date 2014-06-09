@@ -37,9 +37,14 @@ public class ConfigurationHandler
 
 	public static String bookTitle;
 	public static String bookAuthor;
+	public static int bookTexture; 
+	public static boolean forceTPPITexture;
+	public static boolean neverTPPITexture;
+	
 	public static String changelogTitle;
 	public static String supportedModsName;
 	public static int guideSkin;
+	public static boolean useAcronym;
 
 	public static boolean showDownloadGUI;
 
@@ -71,11 +76,16 @@ public class ConfigurationHandler
 		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book", Type.STRING).getString();
 		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book", Type.STRING).getString();
 		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
+		doSpawnBook = config.get("Book Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
+		bookTexture = config.get("Book Settings", "bookTexture", 1, "The texture of the spawn book (1-3)").getInt();
+		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);
+		neverTPPITexture = config.get("Book Settings", "neverTPPITexture", false, "Disables the TPPI book texture, even if TPPITweaks is detected").getBoolean(false);
+		
 		supportedModsName = config.get("Guide Settings", "supportedModsFilename", "SupportedMods",
 				"The file name of the file to read the mod documentation from (used to support translation). Do not include the extension in the filename (it is .txt)").getString();
 		guideSkin = config.get("Guide Settings", "GuideSkin", 0, "The skin of the guide GUI/item, 0=tech, 1=scroll").getInt();
-		doSpawnBook = config.get("Book Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
-
+		useAcronym = config.get("Guide Settings", "useAcronym", false, "Enable this if your pack name is too long to be on the guide item name, it will switch to using the acronym instead").getBoolean(false);
+		
 		showDownloadGUI = config.get("GUI Settings", "showDownloadGUI", true, "Whether to show the download GUI at all").getBoolean(true);
 
 		packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
@@ -90,6 +100,11 @@ public class ConfigurationHandler
 				.getBoolean(true);
 
 		config.save();
+		
+		if (forceTPPITexture && neverTPPITexture)
+			throw new RuntimeException("[ModpackTweaks] Do not force enable AND force disable the TPPI texture!");
+		if (bookTexture < 1 || bookTexture > 3)
+			throw new RuntimeException("[ModpackTweaks] Book texture must be between 1 and 3 (inclusive)");
 	}
 
 	public static void loadClientsideJson()

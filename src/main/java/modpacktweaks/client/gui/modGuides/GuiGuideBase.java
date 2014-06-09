@@ -111,6 +111,7 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
             getMinecraft().renderEngine.bindTexture(texture);
             drawTexturedModalRect(guiLeft + 35, guiTop, 35, 0, this.xSize - 75, 14);
             drawTexturedModalRect(guiLeft + 35, guiTop + ySize - 24, 35, ySize - 24, this.xSize - 75, 14);
+            mc.fontRenderer.drawString(ConfigurationHandler.packName, guiLeft + xSize / 2 - mc.fontRenderer.getStringWidth(ConfigurationHandler.packName) / 2, guiTop + 3, 0xFFFFFF);
 	    }
 	    
 	    homeButton.draw(); // Make sure this button is on top of the overlay

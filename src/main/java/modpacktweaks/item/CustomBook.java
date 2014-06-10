@@ -84,7 +84,9 @@ public class CustomBook extends ItemEditableBook
 		NBTTagList bookPages;
 
 		book.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
-
+		
+		List<String> text;
+		
 		switch (damage)
 		{
 		case 0:			
@@ -93,9 +95,11 @@ public class CustomBook extends ItemEditableBook
 			nbttagcompound = book.getTagCompound();
 			bookPages = new NBTTagList("pages");
 
-			for (int i = 0; i < ConfigurationHandler.bookText.size(); i++)
+			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadGuideText(FileLoader.getGuideText()) : ConfigurationHandler.bookText;
+			
+			for (int i = 0; i < text.size(); i++)
 			{
-				bookPages.appendTag(new NBTTagString("" + i, ConfigurationHandler.bookText.get(i)));
+				bookPages.appendTag(new NBTTagString("" + i, text.get(i)));
 			}
 
 			nbttagcompound.setTag("pages", bookPages);
@@ -108,14 +112,16 @@ public class CustomBook extends ItemEditableBook
 			nbttagcompound = book.getTagCompound();
 			bookPages = new NBTTagList("pages");
 			
-			if (ConfigurationHandler.changelog == null)
+			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadChangelogText(FileLoader.getGuideText()) : ConfigurationHandler.changelog;
+			
+			if (text == null)
 			{
-				ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText());
+				text = ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText());
 			}
 			
-			for (int i = 0; i < ConfigurationHandler.changelog.size(); i++)
+			for (int i = 0; i < text.size(); i++)
 			{
-				bookPages.appendTag(new NBTTagString("" + i, ConfigurationHandler.changelog.get(i)));
+				bookPages.appendTag(new NBTTagString("" + i, text.get(i)));
 			}
 
 			nbttagcompound.setTag("pages", bookPages);

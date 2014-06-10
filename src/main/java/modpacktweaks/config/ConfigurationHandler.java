@@ -164,14 +164,16 @@ public class ConfigurationHandler
 	 * @param file
 	 *            - The input stream to gather the text from
 	 */
-	public static void loadGuideText(InputStream file)
+	public static List<String> loadGuideText(InputStream file)
 	{
 		bookText = file == null ? new ArrayList<String>() : TxtParser.parseFileMain(file);
+		return bookText;
 	}
 
-	public static void loadChangelogText(InputStream file)
+	public static List<String> loadChangelogText(InputStream file)
 	{
 		changelog = file == null ? new ArrayList<String>() : TxtParser.parseFileMain(file);
+		return changelog;
 	}
 
 	/**

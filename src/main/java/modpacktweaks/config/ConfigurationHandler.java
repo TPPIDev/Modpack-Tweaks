@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +38,10 @@ public class ConfigurationHandler
 
 	public static String bookTitle;
 	public static String bookAuthor;
-	public static int bookTexture; 
+	public static int bookTexture;
 	public static boolean forceTPPITexture;
 	public static boolean neverTPPITexture;
-	
+
 	public static String changelogTitle;
 	public static String supportedModsName;
 	public static int guideSkin;
@@ -80,12 +81,13 @@ public class ConfigurationHandler
 		bookTexture = config.get("Book Settings", "bookTexture", 1, "The texture of the spawn book (1-3)").getInt();
 		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);
 		neverTPPITexture = config.get("Book Settings", "neverTPPITexture", false, "Disables the TPPI book texture, even if TPPITweaks is detected").getBoolean(false);
-		
+
 		supportedModsName = config.get("Guide Settings", "supportedModsFilename", "SupportedMods",
 				"The file name of the file to read the mod documentation from (used to support translation). Do not include the extension in the filename (it is .txt)").getString();
 		guideSkin = config.get("Guide Settings", "GuideSkin", 0, "The skin of the guide GUI/item, 0=tech, 1=scroll").getInt();
-		useAcronym = config.get("Guide Settings", "useAcronym", false, "Enable this if your pack name is too long to be on the guide item name, it will switch to using the acronym instead").getBoolean(false);
-		
+		useAcronym = config.get("Guide Settings", "useAcronym", false, "Enable this if your pack name is too long to be on the guide item name, it will switch to using the acronym instead")
+				.getBoolean(false);
+
 		showDownloadGUI = config.get("GUI Settings", "showDownloadGUI", true, "Whether to show the download GUI at all").getBoolean(true);
 
 		packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
@@ -100,7 +102,7 @@ public class ConfigurationHandler
 				.getBoolean(false);
 
 		config.save();
-		
+
 		if (forceTPPITexture && neverTPPITexture)
 			throw new RuntimeException("[ModpackTweaks] Do not force enable AND force disable the TPPI texture!");
 		if (bookTexture < 1 || bookTexture > 3)
@@ -146,16 +148,8 @@ public class ConfigurationHandler
 	private static void copyJsonFromJar(String filename, File to) throws IOException
 	{
 		System.out.println("Copying file " + filename + " from jar");
-		File jsonFile = null;
-		try
-		{
-			jsonFile = new File(ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename).toURI().getPath());
-		}
-		catch (URISyntaxException e)
-		{
-			e.printStackTrace();
-		}
-		FileUtils.copyFile(jsonFile, to);
+		URL u = ModpackTweaks.class.getResource("/assets/modpacktweaks/misc/" + filename);
+		FileUtils.copyURLToFile(u, to);
 	}
 
 	/**

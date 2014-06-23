@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +63,7 @@ public class ConfigurationHandler
 	public static boolean shouldLoadGUI = true;
 
 	public static boolean autoUpdateBooks;
+	public static boolean forcePageBreaks;
 
 	public static void init(File file)
 	{
@@ -100,6 +100,7 @@ public class ConfigurationHandler
 						false,
 						"Whether (custom) books will update on right click. NOTE: This only works with CUSTOM books, not vanilla written books. Also, this is for debug purposes only, it can cause severe I/O lag in normal play.")
 				.getBoolean(false);
+		forcePageBreaks = config.get("Other optoins", "forcePageBreaks", true, "Forces a page break after a certain amount of characters. Disable this if you are having issues with pages breaking too soon.").getBoolean(true);
 
 		config.save();
 

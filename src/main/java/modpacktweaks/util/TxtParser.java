@@ -7,6 +7,7 @@ import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.command.CommandMT;
+import modpacktweaks.config.ConfigurationHandler;
 
 /**
  * Beware all ye who enter here, for the sake of your sanity, turn back
@@ -93,7 +94,7 @@ public class TxtParser
 				// In the end just concatenate to the page
 				else
 				{
-					if (nextPage.length() + temp.length() > 240 && nextPage.length() != 0 && temp.length() != 0)
+					if (nextPage.length() + temp.length() > 240 && nextPage.length() != 0 && temp.length() != 0 && ConfigurationHandler.forcePageBreaks)
 					{
 						bookText.add(nextPage);
 						nextPage = temp;
@@ -208,7 +209,7 @@ public class TxtParser
 				{
 					temp = temp.substring(0, temp.length() - 1);
 					temp += "\n";
-					if (nextPage.length() + temp.length() > 240 && nextPage.length() != 0 && temp.length() != 0)
+					if (nextPage.length() + temp.length() > 240 && nextPage.length() != 0 && temp.length() != 0 && ConfigurationHandler.forcePageBreaks)
 					{
 						bookText.add(nextPage);
 						nextPage = temp;

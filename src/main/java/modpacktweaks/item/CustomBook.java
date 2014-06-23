@@ -112,7 +112,7 @@ public class CustomBook extends ItemEditableBook
 			nbttagcompound = book.getTagCompound();
 			bookPages = new NBTTagList("pages");
 			
-			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadChangelogText(FileLoader.getGuideText()) : ConfigurationHandler.changelog;
+			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText()) : ConfigurationHandler.changelog;
 			
 			if (text == null)
 			{

@@ -29,7 +29,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "modpacktweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:NotEnoughItems;after:ThermalExpansion")
+@Mod(modid = "modpackTweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:NotEnoughItems;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL })
 public class ModpackTweaks
 {

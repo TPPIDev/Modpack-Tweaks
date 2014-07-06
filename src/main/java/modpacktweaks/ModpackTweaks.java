@@ -13,6 +13,7 @@ import modpacktweaks.event.PlayerTracker;
 import modpacktweaks.item.ModItems;
 import modpacktweaks.lib.Reference;
 import modpacktweaks.proxy.CommonProxy;
+import modpacktweaks.proxy.PacketHandler;
 import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -30,7 +31,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = "modpackTweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:NotEnoughItems;after:ThermalExpansion")
-@NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL })
+@NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL }, packetHandler = PacketHandler.class)
 public class ModpackTweaks
 {
 	public static final String VERSION = "0.1.0";

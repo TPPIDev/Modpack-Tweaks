@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +31,6 @@ public class ConfigurationHandler
 {
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	public static HashMap<String, Boolean> am2SpawnControls = new HashMap<String, Boolean>();
 	public static int bookID;
 
 	public static String bookTitle;
@@ -68,9 +66,7 @@ public class ConfigurationHandler
 	public static boolean autoUpdateBooks;
 	public static boolean forcePageBreaks;
 
-	public static String guideHomeText = "Welcome to the "
-			+ ConfigurationHandler.packName
-			+ " Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
+	public static String guideHomeText = "Welcome to the Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
 
 	public static void init(File file)
 	{

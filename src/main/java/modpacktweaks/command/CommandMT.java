@@ -39,11 +39,17 @@ public class CommandMT extends CommandBase
 
 	public static void initValidCommandArguments(InputStream file)
 	{
+		if (ConfigurationHandler.shouldLoadGUI)
 		validCommands.add("download");
-		validCommands.add("mods");
-		validCommands.add("changelog");
-		validCommands.add("guide");
-		validCommands.add("removeBooks");
+		
+		if (ConfigurationHandler.doModBooks)
+			validCommands.add("mods");
+		if (ConfigurationHandler.doChangelog)
+			validCommands.add("changelog");
+		if (ConfigurationHandler.doGuide)
+			validCommands.add("guide");
+		if (ConfigurationHandler.doModBooks)
+			validCommands.add("removeBooks");
 
 		supportedModsAndList.add("list");
 

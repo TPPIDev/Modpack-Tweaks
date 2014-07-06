@@ -26,7 +26,7 @@ public class UpdateGui extends GuiScreen
 
 	private static List<InstructionsGui> modScreens = new ArrayList<InstructionsGui>();
 	
-	Iterator<InstructionsGui> iterator;
+	private Iterator<InstructionsGui> iterator;
 
 	public static void addModDownload(ModDownload mod)
 	{		
@@ -90,7 +90,7 @@ public class UpdateGui extends GuiScreen
 			{
 				try
 				{
-					if (GuiHelper.updateGui.iterator.hasNext())
+					if (this.iterator.hasNext())
 					{
 						this.mc.displayGuiScreen(GuiHelper.updateGui.iterator.next());
 					}
@@ -102,7 +102,7 @@ public class UpdateGui extends GuiScreen
 						configGui = null;
 					}
 					*/
-					else if (UpdateGui.modScreens.size() > 0)
+					else if (modScreens.size() > 0)
 					{
 						this.mc.displayGuiScreen(new RestartGui());
 					}

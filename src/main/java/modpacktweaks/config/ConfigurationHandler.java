@@ -68,8 +68,10 @@ public class ConfigurationHandler
 	public static boolean autoUpdateBooks;
 	public static boolean forcePageBreaks;
 
-	public static String guideHomeText = "Welcome to the " + ConfigurationHandler.packName + " Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
-	
+	public static String guideHomeText = "Welcome to the "
+			+ ConfigurationHandler.packName
+			+ " Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
+
 	public static void init(File file)
 	{
 		cfg = file;
@@ -99,13 +101,15 @@ public class ConfigurationHandler
 		packVersion = config.get("Pack Info", "packVersion", "0.0.0", "The version of the modpack").getString();
 		packAcronym = config.get("Pack Info", "packAcronym", "reallyLongAcronymSoYouDontForget", "The acronym of the modpack").getString();
 
-		autoUpdateBooks = config
-				.get("Other options",
-						"autoUpdateBooks",
-						false,
-						"Whether (custom) books will update on right click. NOTE: This only works with CUSTOM books, not vanilla written books. Also, this is for debug purposes only, it can cause severe I/O lag in normal play.")
-				.getBoolean(false);
-		forcePageBreaks = config.get("Other optoins", "forcePageBreaks", true, "Forces a page break after a certain amount of characters. Disable this if you are having issues with pages breaking too soon.").getBoolean(true);
+		autoUpdateBooks = config.get("Other options", "autoUpdateBooks", false, 
+				"Whether (custom) books will update on right click. NOTE: This only works with CUSTOM books, not vanilla written books. Also, this is for debug purposes only, it can cause severe I/O lag in normal play.").getBoolean(false);
+		forcePageBreaks = config.get("Other options", "forcePageBreaks", true,
+				"Forces a page break after a certain amount of characters. Disable this if you are having issues with pages breaking too soon.").getBoolean(true);
+
+		doSpawnBook = config.get("Global Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
+		doGuide = config.get("Global Settings", "doGuide", true, "Whether or not to allow the guide command").getBoolean(true);
+		doChangelog = config.get("Global Settings", "doChangelog", true, "Whether or not to allow the changelog command").getBoolean(true);
+		doModBooks = config.get("Global Settings", "doModBooks", true, "Whether or not to allow the mod book commands").getBoolean(true);
 
 		config.save();
 
@@ -113,11 +117,6 @@ public class ConfigurationHandler
 			throw new RuntimeException("[ModpackTweaks] Do not force enable AND force disable the TPPI texture!");
 		if (bookTexture < 1 || bookTexture > 3)
 			throw new RuntimeException("[ModpackTweaks] Book texture must be between 1 and 3 (inclusive)");
-		
-		doSpawnBook = config.get("Global Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
-		doGuide = config.get("Global Settings", "doGuide", true, "Whether or not to allow the guide command").getBoolean(true);
-		doChangelog = config.get("Global Settings", "doChangelog", true, "Whether or not to allow the changelog command").getBoolean(true);
-		doModBooks = config.get("Global Settings", "doModBooks", true, "Whether or not to allow the mod book commands").getBoolean(true);
 	}
 
 	public static void loadClientsideJson()

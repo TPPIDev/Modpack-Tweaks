@@ -39,7 +39,6 @@ public class CommandMT extends CommandBase
 
 	public static void initValidCommandArguments(InputStream file)
 	{
-		if (ConfigurationHandler.shouldLoadGUI)
 		validCommands.add("download");
 		
 		if (ConfigurationHandler.doModBooks)

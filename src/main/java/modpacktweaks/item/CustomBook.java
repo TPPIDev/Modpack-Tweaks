@@ -65,7 +65,7 @@ public class CustomBook extends ItemEditableBook
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
 			{
 				stack.setTagCompound(new NBTTagCompound());
-				addTextToBook(stack, stack.getItemDamage());
+				addTextToBook(stack);
 
 				player.inventoryContainer.detectAndSendChanges();
 
@@ -78,7 +78,7 @@ public class CustomBook extends ItemEditableBook
 		return stack;
 	}
 
-	public ItemStack addTextToBook(ItemStack book, int damage)
+	public ItemStack addTextToBook(ItemStack book)
 	{
 		NBTTagCompound nbttagcompound;
 		NBTTagList bookPages;
@@ -86,6 +86,7 @@ public class CustomBook extends ItemEditableBook
 		book.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
 		
 		List<String> text;
+		int damage = book.getItemDamage();
 		
 		switch (damage)
 		{
@@ -135,13 +136,13 @@ public class CustomBook extends ItemEditableBook
 	public ItemStack getGuide()
 	{
 		ConfigurationHandler.bookText = TxtParser.parseFileMain(FileLoader.getGuideText());
-		return addTextToBook(new ItemStack(ModItems.book), 0);
+		return addTextToBook(new ItemStack(ModItems.book));
 	}
 	
 	public ItemStack getChangelog()
 	{
 		ConfigurationHandler.changelog = TxtParser.parseFileMain(FileLoader.getChangelogText());
-		return addTextToBook(new ItemStack(ModItems.book, 1, 1), 1);
+		return addTextToBook(new ItemStack(ModItems.book, 1, 1));
 	}
 
 	@Override
@@ -154,8 +155,8 @@ public class CustomBook extends ItemEditableBook
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
 	{
-		par3List.add(new ItemStack(this, 1, 0));
-		par3List.add(new ItemStack(this, 1, 1));
+		par3List.add(addTextToBook(new ItemStack(this, 1, 0)));
+		par3List.add(addTextToBook(new ItemStack(this, 1, 1)));
 		par3List.add(new ItemStack(this, 1, 2));
 	}
 	

@@ -267,7 +267,7 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 	public void setDefaultText(boolean startup)
 	{
 		title = "Main menu";
-		body = "Welcome to the " + ConfigurationHandler.packName + " Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
+		body = ConfigurationHandler.guideHomeText;
 		if (!startup)
 			initPanel();
 	}

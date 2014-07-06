@@ -107,23 +107,22 @@ public class CommandMT extends CommandBase
 				if (!processCommandDownload(icommandsender, astring))
 					ModpackTweaks.logger.log(Level.SEVERE, "Invalid Player");
 			}
-			else if (astring[0].equalsIgnoreCase("mods"))
+			else if (astring[0].equalsIgnoreCase("mods") && ConfigurationHandler.doModBooks)
 			{
 				processCommandMods(icommandsender, astring);
 			}
-			else if (astring[0].equalsIgnoreCase("changelog"))
+			else if (astring[0].equalsIgnoreCase("changelog") && ConfigurationHandler.doChangelog)
 			{
 				processCommandChangelog(icommandsender);
 			}
-			else if (astring[0].equalsIgnoreCase("guide"))
+			else if (astring[0].equalsIgnoreCase("guide") && ConfigurationHandler.doGuide)
 			{
 				processCommandGuide(icommandsender);
 			}
-			else if (astring[0].equalsIgnoreCase("removeBooks"))
+			else if (astring[0].equalsIgnoreCase("removeBooks") && ConfigurationHandler.doModBooks)
 			{
 				removeGuideBooks(icommandsender);
 			}
-
 		}
 		else
 		{

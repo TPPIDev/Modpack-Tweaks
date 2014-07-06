@@ -49,6 +49,9 @@ public class ConfigurationHandler
 	public static boolean showDownloadGUI;
 
 	public static boolean doSpawnBook;
+	public static boolean doChangelog;
+	public static boolean doGuide;
+	public static boolean doModBooks;
 
 	public static File cfg;
 
@@ -65,6 +68,8 @@ public class ConfigurationHandler
 	public static boolean autoUpdateBooks;
 	public static boolean forcePageBreaks;
 
+	public static String guideHomeText = "Welcome to the " + ConfigurationHandler.packName + " Documentation System, your source documentation for all mods in this pack. To start, click on a button signifying the letter the mod starts with, then click on the mod name to read the documentation related to it that we have available. To return to this menu, press the home button at any time.";
+	
 	public static void init(File file)
 	{
 		cfg = file;
@@ -77,7 +82,6 @@ public class ConfigurationHandler
 		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book", Type.STRING).getString();
 		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book", Type.STRING).getString();
 		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
-		doSpawnBook = config.get("Book Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
 		bookTexture = config.get("Book Settings", "bookTexture", 1, "The texture of the spawn book (1-3)").getInt();
 		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);
 		neverTPPITexture = config.get("Book Settings", "neverTPPITexture", false, "Disables the TPPI book texture, even if TPPITweaks is detected").getBoolean(false);
@@ -87,6 +91,7 @@ public class ConfigurationHandler
 		guideSkin = config.get("Guide Settings", "GuideSkin", 0, "The skin of the guide GUI/item, 0=tech, 1=scroll").getInt();
 		useAcronym = config.get("Guide Settings", "useAcronym", false, "Enable this if your pack name is too long to be on the guide item name, it will switch to using the acronym instead")
 				.getBoolean(false);
+		guideHomeText = config.get("Guide Settings", "guideHomeText", guideHomeText, "The text on the main screen of the guide.").getString();
 
 		showDownloadGUI = config.get("GUI Settings", "showDownloadGUI", true, "Whether to show the download GUI at all").getBoolean(true);
 
@@ -108,6 +113,11 @@ public class ConfigurationHandler
 			throw new RuntimeException("[ModpackTweaks] Do not force enable AND force disable the TPPI texture!");
 		if (bookTexture < 1 || bookTexture > 3)
 			throw new RuntimeException("[ModpackTweaks] Book texture must be between 1 and 3 (inclusive)");
+		
+		doSpawnBook = config.get("Global Settings", "doSpawnBook", true, "Whether or not to give the player a welcome book on first spawn").getBoolean(true);
+		doGuide = config.get("Global Settings", "doGuide", true, "Whether or not to allow the guide command").getBoolean(true);
+		doChangelog = config.get("Global Settings", "doChangelog", true, "Whether or not to allow the changelog command").getBoolean(true);
+		doModBooks = config.get("Global Settings", "doModBooks", true, "Whether or not to allow the mod book commands").getBoolean(true);
 	}
 
 	public static void loadClientsideJson()

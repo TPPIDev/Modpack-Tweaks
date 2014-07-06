@@ -49,6 +49,8 @@ public class UpdateGui extends GuiScreen
 		}
 
 		this.firstTime = firstTime;
+		
+		GuiHelper.updateGui = this;
 	}
 
 	@SuppressWarnings("unchecked")

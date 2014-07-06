@@ -90,9 +90,9 @@ public class UpdateGui extends GuiScreen
 			{
 				try
 				{
-					if (this.iterator.hasNext())
+					if (iterator.hasNext())
 					{
-						this.mc.displayGuiScreen(GuiHelper.updateGui.iterator.next());
+						this.mc.displayGuiScreen(iterator.next());
 					}
 					/*
 					else if (configGui != null)

@@ -74,7 +74,7 @@ public class CommandMT extends CommandBase
 	@Override
 	public String getCommandUsage(ICommandSender icommandsender)
 	{
-		return ConfigurationHandler.packAcronym.toLowerCase() + " <arg>";
+		return "/" + ConfigurationHandler.packAcronym.toLowerCase() + " <arg>";
 	}
 
 	@Override

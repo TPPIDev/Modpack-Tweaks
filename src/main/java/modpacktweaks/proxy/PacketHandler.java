@@ -1,7 +1,6 @@
 package modpacktweaks.proxy;
 
-import modpacktweaks.client.gui.UpdateGui;
-import net.minecraft.client.Minecraft;
+import modpacktweaks.client.gui.GuiHelper;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -14,7 +13,7 @@ public class PacketHandler implements IPacketHandler
 	{
 		if (packet.data[0] == 0)
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new UpdateGui(null, false));
+			GuiHelper.doDownloaderGUI();
 		}
 	}
 }

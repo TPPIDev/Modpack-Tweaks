@@ -10,11 +10,8 @@ import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.client.gui.UpdateGui;
 import modpacktweaks.config.ConfigurationHandler;
 import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import com.google.common.collect.ImmutableList;
 
@@ -24,7 +21,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ModEventHandler
 {
-	public static boolean NBTValOnDeath;
 	private String name, version, acronym;
 
 	public boolean shouldLoadGUI;
@@ -139,29 +135,5 @@ public class ModEventHandler
 			e.printStackTrace();
 			ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
 		}
-	}
-
-	@ForgeSubscribe
-	public void onLivingDeath(LivingDeathEvent event)
-	{
-		if (event.entityLiving instanceof EntityPlayer)
-		{
-			savePlayerNBT((EntityPlayer) event.entityLiving);
-		}
-	}
-
-	private void savePlayerNBT(EntityPlayer player)
-	{
-		ModpackTweaks.logger.log(Level.INFO, "getting NBT");
-
-		NBTValOnDeath = player.getEntityData().getCompoundTag("modpacktweaks").getBoolean("hasBook");
-	}
-
-	public NBTTagCompound getTag(EntityPlayer entity, boolean useClassVal)
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setBoolean("hasBook", useClassVal ? NBTValOnDeath : true);
-
-		return tag;
 	}
 }

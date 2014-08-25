@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.command.CommandMT;
 import modpacktweaks.config.ConfigurationHandler;
-import modpacktweaks.event.ModEventHandler;
 import modpacktweaks.event.PlayerTracker;
 import modpacktweaks.item.ModItems;
 import modpacktweaks.lib.Reference;
@@ -42,7 +41,6 @@ public class ModpackTweaks
 	@SidedProxy(clientSide = "modpacktweaks.proxy.ClientProxy", serverSide = "modpacktweaks.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static ModEventHandler eventHandler;
 	public static PlayerTracker playerTracker;
 
 	public static final Logger logger = Logger.getLogger("ModpackTweaks");
@@ -87,8 +85,6 @@ public class ModpackTweaks
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		eventHandler = new ModEventHandler();
-		MinecraftForge.EVENT_BUS.register(eventHandler);
 		ModItems.registerRecipes();
 	}
 

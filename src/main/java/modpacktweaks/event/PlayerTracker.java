@@ -27,25 +27,22 @@ public class PlayerTracker implements IPlayerTracker
 	@Override
 	public void onPlayerChangedDimension(EntityPlayer player)
 	{
-		ModEventHandler.NBTValOnDeath = player.getEntityData().getCompoundTag("modpacktweaks").getBoolean("hasBook");
+		// Do Nothing
 	}
 
 	@Override
 	public void onPlayerRespawn(EntityPlayer player)
 	{
-		ModpackTweaks.logger.log(Level.INFO, "adding NBT: " + ModEventHandler.NBTValOnDeath);
-		player.getEntityData().setTag("modpacktweaks", ModpackTweaks.eventHandler.getTag(player, true));
-		
-		addBook(player);
+		// Do Nothing
 	}
 	
 	private boolean addBook(EntityPlayer player)
 	{
-		if (player != null && ConfigurationHandler.doSpawnBook && !player.getEntityData().getCompoundTag("modpacktweaks").getBoolean("hasBook") && !player.worldObj.isRemote)
+		if (player != null && ConfigurationHandler.doSpawnBook && !player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).getBoolean("MT:hasBook") && !player.worldObj.isRemote)
 		{
 			ModpackTweaks.logger.log(Level.INFO, "Adding book");
 
-			player.getEntityData().setTag("modpacktweaks", ModpackTweaks.eventHandler.getTag(player, false));
+			player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setBoolean("MT:hasBook", true);
 			
 			ItemStack stack = ModItems.book.getGuide();
 			player.inventory.addItemStackToInventory(stack);

@@ -40,7 +40,7 @@ public class CommandMT extends CommandBase
 	public static void initValidCommandArguments(InputStream file)
 	{
 		validCommands.add("download");
-		
+
 		if (ConfigurationHandler.doModBooks)
 			validCommands.add("mods");
 		if (ConfigurationHandler.doChangelog)
@@ -166,7 +166,10 @@ public class CommandMT extends CommandBase
 	private void processCommandGuide(ICommandSender command)
 	{
 		ItemStack stack = new ItemStack(ModItems.book, 1, 2);
-		stack.setTagInfo("title", new NBTTagString("title", (ConfigurationHandler.useAcronym ? ConfigurationHandler.packAcronym : ConfigurationHandler.packName) + " " + StatCollector.translateToLocal("item.guide.name")));
+		stack.setTagInfo(
+				"title",
+				new NBTTagString("title", (ConfigurationHandler.useAcronym ? ConfigurationHandler.packAcronym : ConfigurationHandler.packName) + " "
+						+ StatCollector.translateToLocal("item.guide.name")));
 
 		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(stack))
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(stack, 0);
@@ -228,7 +231,8 @@ public class CommandMT extends CommandBase
 		if (changelog == null)
 			return false;
 
-		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog));
+		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(changelog))
+			;
 		command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(changelog, 0);
 
 		return true;
@@ -291,13 +295,10 @@ public class CommandMT extends CommandBase
 	{
 		return modProperNames.get(modid);
 	}
-	
+
 	@Override
-    public int compareTo(Object o) {
-        if (o instanceof ICommand) {
-            return this.compareTo((ICommand) o);
-        } else {
-            return 0;
-        }
-    }
+	public int compareTo(Object o)
+	{
+		return this.getCommandName().compareTo(((ICommand) o).getCommandName());
+	}
 }

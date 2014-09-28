@@ -2,7 +2,6 @@ package modpacktweaks.util;
 
 import java.awt.Desktop;
 import java.net.URI;
-import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
 
@@ -41,15 +40,15 @@ public class DesktopApi {
 	}
 
 	private static void logErr(String msg, Throwable t) {
-		ModpackTweaks.logger.log(Level.SEVERE, msg);
+		ModpackTweaks.logger.error(msg);
 		t.printStackTrace();
 	}
 
 	private static void logErr(String msg) {
-		ModpackTweaks.logger.log(Level.SEVERE, msg);
+		ModpackTweaks.logger.error(msg);
 	}
 
 	private static void logOut(String msg) {
-		ModpackTweaks.logger.log(Level.SEVERE, msg);
+		ModpackTweaks.logger.info(msg);
 	}
 }

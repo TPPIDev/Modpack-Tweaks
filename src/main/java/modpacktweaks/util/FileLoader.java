@@ -52,7 +52,7 @@ public class FileLoader
 				fw.flush();
 				fw.close();
 			} catch (IOException e1) {
-				ModpackTweaks.logger.severe("Could not create default file" + file.getName() + "!");
+				ModpackTweaks.logger.error("Could not create default file" + file.getName() + "!");
 				e1.printStackTrace();
 			}
 		}
@@ -70,7 +70,7 @@ public class FileLoader
 	
 	private static void IOErr(String filename, IOException e)
 	{
-		ModpackTweaks.logger.severe("IO error while loading ModpackTweaks, make sure nothing in the config folder is actively open and Minecraft has permission to read those files!");
+		ModpackTweaks.logger.fatal("IO error while loading ModpackTweaks, make sure nothing in the config folder is actively open and Minecraft has permission to read those files!");
 		e.printStackTrace();
 		throw new RuntimeException("IO Error in ModpackTweaks file loading, file: " + filename);
 	}

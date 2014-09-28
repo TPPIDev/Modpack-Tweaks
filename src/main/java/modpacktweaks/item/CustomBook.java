@@ -7,16 +7,17 @@ import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.config.ConfigurationHandler;
 import modpacktweaks.util.FileLoader;
 import modpacktweaks.util.TxtParser;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemEditableBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -24,31 +25,31 @@ import cpw.mods.fml.relauncher.Side;
 
 public class CustomBook extends ItemEditableBook
 {
-	public CustomBook(int par1)
+	public CustomBook()
 	{
-		super(par1);
+		super();
 		setCreativeTab(ModpackTweaks.creativeTab);
 	}
 
-	private Icon[] icons = new Icon[3];
+	private IIcon[] icons = new IIcon[3];
 	private String[] unlocNames = {"item.welcomePacket", "item.changelog", "item.guide"};
 
 	@Override
-	public void registerIcons(IconRegister par1IconRegister)
+	public void registerIcons(IIconRegister par1IIconRegister)
 	{
-		icons[0] = par1IconRegister.registerIcon("modpacktweaks:" + (Loader.isModLoaded("TPPITweaks") && !ConfigurationHandler.neverTPPITexture || ConfigurationHandler.forceTPPITexture ? "tppiBook" : "book" + ConfigurationHandler.bookTexture));
-		icons[1] = Item.writtenBook.getIconFromDamage(0);
-		icons[2] = par1IconRegister.registerIcon(ConfigurationHandler.guideSkin == 0 ? "modpacktweaks:guide1" : "modpacktweaks:guide2");
+		icons[0] = par1IIconRegister.registerIcon("modpacktweaks:" + (Loader.isModLoaded("TPPITweaks") && !ConfigurationHandler.neverTPPITexture || ConfigurationHandler.forceTPPITexture ? "tppiBook" : "book" + ConfigurationHandler.bookTexture));
+		icons[1] = Items.written_book.getIconFromDamage(0);
+		icons[2] = par1IIconRegister.registerIcon(ConfigurationHandler.guideSkin == 0 ? "modpacktweaks:guide1" : "modpacktweaks:guide2");
 	}
 	
 	@Override
-	public Icon getIcon(ItemStack stack, int pass)
+	public IIcon getIcon(ItemStack stack, int pass)
 	{
 		return icons[stack.getItemDamage()];
 	}
 	
 	@Override
-	public Icon getIconFromDamage(int par1)
+	public IIcon getIconFromDamage(int par1)
 	{
 		return icons[par1];
 	}
@@ -80,6 +81,7 @@ public class CustomBook extends ItemEditableBook
 
 	public ItemStack addTextToBook(ItemStack book)
 	{
+	    // TODO 1.7 figure out how book data works
 		NBTTagCompound nbttagcompound;
 		NBTTagList bookPages;
 
@@ -153,7 +155,7 @@ public class CustomBook extends ItemEditableBook
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
+	public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List par3List)
 	{
 		par3List.add(addTextToBook(new ItemStack(this, 1, 0)));
 		par3List.add(addTextToBook(new ItemStack(this, 1, 1)));

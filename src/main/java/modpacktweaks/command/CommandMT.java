@@ -1,5 +1,7 @@
 package modpacktweaks.command;
 
+import ibxm.Player;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
 
 public class CommandMT extends CommandBase
 {
@@ -139,9 +138,9 @@ public class CommandMT extends CommandBase
 				if (i < validCommands.size() - 1)
 					validCommandString += ", ";
 			}
-			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(getCommandUsage(icommandsender)));
-			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Valid args:"));
-			icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(validCommandString));
+			icommandsender.addChatMessage(new ChatComponentText(getCommandUsage(icommandsender)));
+			icommandsender.addChatMessage(new ChatComponentText("Valid args:"));
+			icommandsender.addChatMessage(new ChatComponentText(validCommandString));
 		}
 	}
 
@@ -169,7 +168,7 @@ public class CommandMT extends CommandBase
 		stack.setTagInfo(
 				"title",
 				new NBTTagString("title", (ConfigurationHandler.useAcronym ? ConfigurationHandler.packAcronym : ConfigurationHandler.packName) + " "
-						+ StatCollector.translateToLocal("item.guide.name")));
+						+ StatCollector.translateToLocal("item.guide.name"))); // TODO 1.7 figure out how book data works
 
 		if (!command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).inventory.addItemStackToInventory(stack))
 			command.getEntityWorld().getPlayerEntityByName(command.getCommandSenderName()).entityDropItem(stack, 0);
@@ -190,15 +189,15 @@ public class CommandMT extends CommandBase
 			}
 			else
 			{
-				command.sendChatToPlayer(new ChatMessageComponent().addText("Valid mod names:"));
+				command.addChatMessage(new ChatComponentText("Valid mod names:"));
 				listMods(command);
 			}
 
 		}
 		else
 		{
-			command.sendChatToPlayer(new ChatMessageComponent().addText("Proper Usage: /" + ConfigurationHandler.packAcronym.toLowerCase() + " mods <modname>"));
-			command.sendChatToPlayer(new ChatMessageComponent().addText("or '/" + ConfigurationHandler.packAcronym.toLowerCase() + " mods list' to see valid names."));
+			command.addChatMessage(new ChatComponentText("Proper Usage: /" + ConfigurationHandler.packAcronym.toLowerCase() + " mods <modname>"));
+			command.addChatMessage(new ChatComponentText("or '/" + ConfigurationHandler.packAcronym.toLowerCase() + " mods list' to see valid names."));
 		}
 
 		return false;
@@ -206,6 +205,7 @@ public class CommandMT extends CommandBase
 
 	private boolean processCommandDownload(ICommandSender command, String[] args)
 	{
+	    // TODO 1.7 networking
 		Packet250CustomPayload packet = new Packet250CustomPayload();
 
 		packet.channel = Reference.CHANNEL;
@@ -242,7 +242,7 @@ public class CommandMT extends CommandBase
 	{
 		String s = "";
 		String total = "";
-		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText("Listing mods:\n"));
+		icommandsender.addChatMessage(new ChatComponentText("Listing mods:\n"));
 		for (int i = 1; i < supportedModsAndList.size(); i++)
 		{
 			s += supportedModsAndList.get(i);
@@ -255,7 +255,7 @@ public class CommandMT extends CommandBase
 			}
 		}
 
-		icommandsender.sendChatToPlayer(new ChatMessageComponent().addText(total));
+		icommandsender.addChatMessage(new ChatComponentText(total));
 	}
 
 	private void giveModBook(String modName, ICommandSender command)

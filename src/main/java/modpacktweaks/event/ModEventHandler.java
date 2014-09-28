@@ -11,11 +11,11 @@ import modpacktweaks.client.gui.UpdateGui;
 import modpacktweaks.config.ConfigurationHandler;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 
 import com.google.common.collect.ImmutableList;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,7 +26,7 @@ public class ModEventHandler
 	public boolean shouldLoadGUI;
 
 	@SideOnly(Side.CLIENT)
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onGui(GuiOpenEvent event)
 	{
 		if (event.gui instanceof GuiMainMenu)

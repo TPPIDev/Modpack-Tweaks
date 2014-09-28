@@ -3,20 +3,21 @@ package modpacktweaks;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.command.CommandMT;
 import modpacktweaks.config.ConfigurationHandler;
 import modpacktweaks.event.PlayerTracker;
 import modpacktweaks.item.ModItems;
-import modpacktweaks.lib.Reference;
 import modpacktweaks.proxy.CommonProxy;
-import modpacktweaks.proxy.PacketHandler;
 import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -26,11 +27,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = "modpackTweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:NotEnoughItems;after:ThermalExpansion")
-@NetworkMod(serverSideRequired = true, clientSideRequired = true, channels = { Reference.CHANNEL }, packetHandler = PacketHandler.class)
 public class ModpackTweaks
 {
 	public static final String VERSION = "0.1.0";
@@ -43,21 +41,20 @@ public class ModpackTweaks
 
 	public static PlayerTracker playerTracker;
 
-	public static final Logger logger = Logger.getLogger("ModpackTweaks");
+	public static final Logger logger = LogManager.getLogger("ModpackTweaks");
 
 	public static CreativeTabs creativeTab = new CreativeTabs("tabMT")
 	{
-		public net.minecraft.item.ItemStack getIconItemStack() 
+		@Override
+		public Item getTabIconItem()
 		{
-			return new ItemStack(ModItems.book, 1, 0);
+		    return ModItems.book;
 		}
 	};
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
-	{
-		logger.setParent(FMLCommonHandler.instance().getFMLLogger());
-		
+	{		
 		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/modpackTweaks/modpackTweaks.cfg"));
 		ConfigurationHandler.loadClientsideJson();
 		
@@ -78,7 +75,7 @@ public class ModpackTweaks
 		ModItems.initItems();
 
 		playerTracker = new PlayerTracker();
-		GameRegistry.registerPlayerTracker(playerTracker);
+		// TODO 1.7 IPlayerTracker GameRegistry.registerPlayerTracker(playerTracker);
 		MinecraftForge.EVENT_BUS.register(playerTracker);
 	}
 

@@ -16,8 +16,7 @@ import java.util.Scanner;
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.client.gui.ModDownload;
 import modpacktweaks.util.TxtParser;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property.Type;
+import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.io.FileUtils;
 
@@ -30,8 +29,6 @@ import com.google.gson.JsonParser;
 public class ConfigurationHandler
 {
 	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-	public static int bookID;
 
 	public static String bookTitle;
 	public static String bookAuthor;
@@ -75,10 +72,8 @@ public class ConfigurationHandler
 		Configuration config = new Configuration(file);
 		config.load();
 
-		bookID = config.getItem("bookId", 21650).getInt() - 256;
-
-		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book", Type.STRING).getString();
-		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book", Type.STRING).getString();
+		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book").getString();
+		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book").getString();
 		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
 		bookTexture = config.get("Book Settings", "bookTexture", 1, "The texture of the spawn book (1-3)").getInt();
 		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);

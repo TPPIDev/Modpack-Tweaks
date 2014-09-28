@@ -9,9 +9,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.IPlayerTracker;
 
+// TODO 1.7 Where did this go!?!?
 public class PlayerTracker implements IPlayerTracker
 {
-
 	@Override
 	public void onPlayerLogin(EntityPlayer player)
 	{

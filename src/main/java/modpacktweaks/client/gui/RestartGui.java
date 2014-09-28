@@ -21,8 +21,8 @@ public class RestartGui extends GuiScreen
 	{
 		this.drawDefaultBackground();
 		
-		this.drawCenteredString(this.fontRenderer, "You have installed all desired mods!", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
-		this.drawCenteredString(this.fontRenderer, "However, you must restart Minecraft for your changes to take effect.", this.width / 2, this.height / 2 - 20, 0xFFFFFF);
+		this.drawCenteredString(this.fontRendererObj, "You have installed all desired mods!", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
+		this.drawCenteredString(this.fontRendererObj, "However, you must restart Minecraft for your changes to take effect.", this.width / 2, this.height / 2 - 20, 0xFFFFFF);
 		
 		super.drawScreen(par1, par2, par3);
 	}

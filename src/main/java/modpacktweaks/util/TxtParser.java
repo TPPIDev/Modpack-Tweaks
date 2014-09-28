@@ -3,7 +3,6 @@ package modpacktweaks.util;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.command.CommandMT;
@@ -61,7 +60,7 @@ public class TxtParser
 						}
 					}
 					else
-						ModpackTweaks.logger.log(Level.WARNING, "ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
+						ModpackTweaks.logger.error("ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
 				}
 				// Finally, do not add this to the page
 				continue;
@@ -189,7 +188,7 @@ public class TxtParser
 						}
 					}
 					else
-						ModpackTweaks.logger.log(Level.WARNING, "ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
+						ModpackTweaks.logger.info("ModpackTweaks - Invalid line-skip in changelog. This may not work as intended");
 				}
 
 				// Finally, do not add this to the page

@@ -10,7 +10,6 @@ import modpacktweaks.config.ConfigurationHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.ChatMessageComponent;
 
 import org.lwjgl.input.Keyboard;
 
@@ -40,7 +39,7 @@ public class UpdateGui extends GuiScreen
 		iterator = modScreens.iterator();
 		
 		if (modScreens.isEmpty() && !firstTime)
-				Minecraft.getMinecraft().thePlayer.sendChatToPlayer(new ChatMessageComponent().addText("You have all optional mods installed!"));
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("You have all optional mods installed!");
 		
 		for (InstructionsGui g : modScreens)
 		{
@@ -136,15 +135,15 @@ public class UpdateGui extends GuiScreen
 
 			if (firstTime)
 			{
-				this.drawCenteredString(this.fontRenderer, "Hey there! This seems like the first time you are starting " + ConfigurationHandler.packName + ". Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "This menu will not show again unless enabled in the ModpackTweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
-				this.drawCenteredString(this.fontRenderer, "Alternatively, you may use the command \"/" + ConfigurationHandler.packAcronym + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
+				this.drawCenteredString(this.fontRendererObj, "Hey there! This seems like the first time you are starting " + ConfigurationHandler.packName + ". Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
+				this.drawCenteredString(this.fontRendererObj, "This menu will not show again unless enabled in the ModpackTweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
+				this.drawCenteredString(this.fontRendererObj, "Alternatively, you may use the command \"/" + ConfigurationHandler.packAcronym + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
 			}
 
-			this.drawCenteredString(this.fontRenderer, "As it turns out, there are some mods we really wanted to include,", this.width / 2, this.height / 2 - 80, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "Though we had to leave them out, you may use this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
-			this.drawCenteredString(this.fontRenderer, "help add them manually, to gain what we feel is the full experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
+			this.drawCenteredString(this.fontRendererObj, "As it turns out, there are some mods we really wanted to include,", this.width / 2, this.height / 2 - 80, 0xFFFFFF);
+			this.drawCenteredString(this.fontRendererObj, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
+			this.drawCenteredString(this.fontRendererObj, "Though we had to leave them out, you may use this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
+			this.drawCenteredString(this.fontRendererObj, "help add them manually, to gain what we feel is the full experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
 		}
 
 		super.drawScreen(par1, par2, par3);

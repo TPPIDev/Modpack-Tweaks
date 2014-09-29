@@ -35,7 +35,7 @@ public class ElementItemText extends ElementText
             {
                 if (k == 0)
                 {
-                    stringList.set(k, "\u00a7" + Integer.toHexString(item.getRarity().rarityColor) + stringList.get(k));
+                    stringList.set(k, item.getRarity().rarityColor + stringList.get(k));
                 }
                 else
                 {

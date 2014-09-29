@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modpacktweaks.client.gui.library.gui.IGuiBase;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -71,7 +72,7 @@ public class ElementButton extends ElementBase
     {
         if (!isDisabled() && isVisible())
         {
-            Minecraft.getMinecraft().sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+            elementSoundManager.playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("random.click"), 1.0F));
             gui.handleElementButtonClick(ID, mouseButton);
             return true;
         }

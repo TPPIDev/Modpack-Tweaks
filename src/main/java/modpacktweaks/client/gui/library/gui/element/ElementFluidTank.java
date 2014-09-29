@@ -5,7 +5,7 @@ import java.util.List;
 import modpacktweaks.client.gui.library.gui.IGuiBase;
 import modpacktweaks.client.gui.library.gui.utils.GuiUtils;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -49,7 +49,7 @@ public class ElementFluidTank extends ElementProgressBar
                 height = Math.min(height, sizeY - 2);
             }
 
-            Icon icon = fluid.getIcon();
+            IIcon icon = fluid.getIcon();
             int colour = fluid.getColor();
             gui.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             GL11.glColor3ub((byte) (colour >> 16 & 0xFF), (byte) (colour >> 8 & 0xFF), (byte) (colour & 0xFF));

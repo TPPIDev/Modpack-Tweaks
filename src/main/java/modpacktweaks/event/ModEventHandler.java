@@ -3,7 +3,6 @@ package modpacktweaks.event;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.client.gui.GuiHelper;
@@ -53,7 +52,7 @@ public class ModEventHandler
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+					ModpackTweaks.logger.warn("Reflection error, " + acronym + " watermark will not be shown");
 					return;
 				}
 
@@ -73,7 +72,7 @@ public class ModEventHandler
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+					ModpackTweaks.logger.warn("Reflection error, " + acronym + " watermark will not be shown");
 				}
 			}
 		}
@@ -89,7 +88,7 @@ public class ModEventHandler
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+			ModpackTweaks.logger.warn("Reflection error, " + acronym + " watermark will not be shown");
 		}
 
 		addStuff(f);
@@ -133,7 +132,7 @@ public class ModEventHandler
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			ModpackTweaks.logger.log(Level.WARNING, "Reflection error, " + acronym + " watermark will not be shown");
+			ModpackTweaks.logger.warn("Reflection error, " + acronym + " watermark will not be shown");
 		}
 	}
 }

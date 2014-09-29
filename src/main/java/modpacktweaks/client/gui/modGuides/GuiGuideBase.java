@@ -247,12 +247,6 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 	}
 
 	@Override
-	public int getItemSpawnSlot(GuiContainer gui, ItemStack item)
-	{
-		return -1;
-	}
-
-	@Override
 	public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui)
 	{
 		return null;
@@ -271,4 +265,10 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 		if (!startup)
 			initPanel();
 	}
+
+    @Override
+    public Iterable<Integer> getItemSpawnSlots(GuiContainer arg0, ItemStack arg1)
+    {
+        return null;
+    }
 }

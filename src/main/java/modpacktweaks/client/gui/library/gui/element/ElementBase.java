@@ -5,7 +5,7 @@ import java.util.List;
 
 import modpacktweaks.client.gui.library.gui.IGuiBase;
 import modpacktweaks.client.gui.library.gui.utils.GuiUtils;
-import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -17,7 +17,7 @@ import cpw.mods.fml.client.FMLClientHandler;
  */
 public abstract class ElementBase
 {
-    public static final SoundManager elementSoundManager = FMLClientHandler.instance().getClient().sndManager;
+    public static final SoundHandler elementSoundManager = FMLClientHandler.instance().getClient().getSoundHandler();
     public static final FontRenderer elementFontRenderer = FMLClientHandler.instance().getClient().fontRenderer;
 
     protected IGuiBase gui;

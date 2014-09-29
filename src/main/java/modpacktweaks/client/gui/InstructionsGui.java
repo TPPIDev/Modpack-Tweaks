@@ -5,7 +5,6 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.logging.Level;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -76,7 +75,7 @@ public class InstructionsGui extends GuiScreen
 			}
 			catch (Exception e1)
 			{
-				ModpackTweaks.logger.log(Level.SEVERE, "Failed to reach " + mod.name + "'s download page!");
+				ModpackTweaks.logger.error("Failed to reach " + mod.name + "'s download page!");
 				e1.printStackTrace();
 			}
 			break;

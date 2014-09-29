@@ -121,7 +121,7 @@ public class GuiBase extends GuiScreen implements IGuiBase
     {
         if (drawName)
         {
-            fontRenderer.drawString(StatCollector.translateToLocal(name), GuiUtils.getCenteredOffset(this, StatCollector.translateToLocal(name), xSize), 6, 0x404040);
+            fontRendererObj.drawString(StatCollector.translateToLocal(name), GuiUtils.getCenteredOffset(this, StatCollector.translateToLocal(name), xSize), 6, 0x404040);
         }
 
         ElementBase element = getElementAtPosition(mouseX - guiLeft, mouseY - guiTop);
@@ -189,7 +189,7 @@ public class GuiBase extends GuiScreen implements IGuiBase
     @Override
     public FontRenderer getFontRenderer()
     {
-        return fontRenderer;
+        return fontRendererObj;
     }
 
     @Override
@@ -289,7 +289,7 @@ public class GuiBase extends GuiScreen implements IGuiBase
     {
         super.keyTyped(character, index);
 
-        if (index == 1 || index == getMinecraft().gameSettings.keyBindInventory.keyCode)
+        if (index == 1 || index == getMinecraft().gameSettings.keyBindInventory.getKeyCode())
         {
             getMinecraft().thePlayer.closeScreen();
         }

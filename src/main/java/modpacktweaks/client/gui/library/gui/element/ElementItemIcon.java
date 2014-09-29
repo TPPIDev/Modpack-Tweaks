@@ -30,7 +30,7 @@ public class ElementItemIcon extends ElementBase
             {
                 if (k == 0)
                 {
-                    stringList.set(k, "\u00a7" + Integer.toHexString(item.getRarity().rarityColor) + stringList.get(k));
+                    stringList.set(k, item.getRarity().rarityColor.toString() + stringList.get(k));
                 }
                 else
                 {

@@ -26,7 +26,7 @@ public class GuiBetterSlider extends GuiButton
      * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over this button.
      */
     @Override
-    protected int getHoverState(boolean par1)
+    public int getHoverState(boolean par1)
     {
         return 0;
     }
@@ -37,7 +37,7 @@ public class GuiBetterSlider extends GuiButton
     @Override
     protected void mouseDragged(Minecraft par1Minecraft, int par2, int par3)
     {
-        if (drawButton)
+        if (visible)
         {
             if (dragging)
             {

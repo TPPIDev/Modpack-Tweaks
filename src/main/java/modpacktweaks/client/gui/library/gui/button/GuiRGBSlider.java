@@ -22,7 +22,7 @@ public class GuiRGBSlider extends GuiBetterSlider
     @Override
     protected void mouseDragged(Minecraft par1Minecraft, int par2, int par3)
     {
-        if (drawButton)
+        if (visible)
         {
             if (dragging)
             {

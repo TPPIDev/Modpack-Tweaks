@@ -3,7 +3,6 @@ package modpacktweaks.client.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
 
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.config.ConfigurationHandler;
@@ -114,7 +113,7 @@ public class UpdateGui extends GuiScreen
 				}
 				catch (Exception e)
 				{
-					ModpackTweaks.logger.log(Level.SEVERE, "Error opening webpage, please contact your modpack author.");
+					ModpackTweaks.logger.error("Error opening webpage, please contact your modpack author.");
 					e.printStackTrace();
 				}
 			}

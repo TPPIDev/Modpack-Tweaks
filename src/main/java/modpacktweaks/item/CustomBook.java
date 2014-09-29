@@ -81,11 +81,10 @@ public class CustomBook extends ItemEditableBook
 
 	public ItemStack addTextToBook(ItemStack book)
 	{
-	    // TODO 1.7 figure out how book data works
-		NBTTagCompound nbttagcompound;
+		NBTTagCompound baseTag = book.getTagCompound();
 		NBTTagList bookPages;
 
-		book.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
+		baseTag.setString("author", ConfigurationHandler.bookAuthor);
 		
 		List<String> text;
 		int damage = book.getItemDamage();
@@ -93,27 +92,27 @@ public class CustomBook extends ItemEditableBook
 		switch (damage)
 		{
 		case 0:			
-			book.setTagInfo("title", new NBTTagString("title", ConfigurationHandler.bookTitle));
+			baseTag.setString("title", ConfigurationHandler.bookTitle);
 
-			nbttagcompound = book.getTagCompound();
-			bookPages = new NBTTagList("pages");
+			baseTag = book.getTagCompound();
+			bookPages = new NBTTagList();
 
 			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadGuideText(FileLoader.getGuideText()) : ConfigurationHandler.bookText;
 			
 			for (int i = 0; i < text.size(); i++)
 			{
-				bookPages.appendTag(new NBTTagString("" + i, text.get(i)));
+				bookPages.appendTag(new NBTTagString(text.get(i)));
 			}
 
-			nbttagcompound.setTag("pages", bookPages);
-			nbttagcompound.setString("version", ModpackTweaks.VERSION);
+			baseTag.setTag("pages", bookPages);
+			baseTag.setString("version", ModpackTweaks.VERSION);
 
 			break;
 		case 1:
-			book.setTagInfo("title", new NBTTagString("title", ConfigurationHandler.changelogTitle));
+            baseTag.setString("title", ConfigurationHandler.changelogTitle);
 			
-			nbttagcompound = book.getTagCompound();
-			bookPages = new NBTTagList("pages");
+			baseTag = book.getTagCompound();
+			bookPages = new NBTTagList();
 			
 			text = ConfigurationHandler.autoUpdateBooks ? ConfigurationHandler.loadChangelogText(FileLoader.getChangelogText()) : ConfigurationHandler.changelog;
 			
@@ -124,11 +123,11 @@ public class CustomBook extends ItemEditableBook
 			
 			for (int i = 0; i < text.size(); i++)
 			{
-				bookPages.appendTag(new NBTTagString("" + i, text.get(i)));
+				bookPages.appendTag(new NBTTagString(text.get(i)));
 			}
 
-			nbttagcompound.setTag("pages", bookPages);
-			nbttagcompound.setString("version", ModpackTweaks.VERSION);
+			baseTag.setTag("pages", bookPages);
+			baseTag.setString("version", ModpackTweaks.VERSION);
 
 			break;
 		}

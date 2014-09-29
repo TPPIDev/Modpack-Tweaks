@@ -2,21 +2,21 @@ package modpacktweaks.client.gui.library.gui.element;
 
 import modpacktweaks.client.gui.library.gui.IGuiBase;
 import modpacktweaks.client.gui.library.gui.utils.GuiUtils;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
 public class ElementButtonIcon extends ElementButton
 {
-    Icon icon;
+    IIcon icon;
 
-    public ElementButtonIcon(IGuiBase parent, int x, int y, String id, Icon icon)
+    public ElementButtonIcon(IGuiBase parent, int x, int y, String id, IIcon icon)
     {
         super(parent, x, y, 20, id, null);
         this.icon = icon;
     }
 
-    public ElementButtonIcon(IGuiBase parent, int x, int y, String id, String hover, Icon icon)
+    public ElementButtonIcon(IGuiBase parent, int x, int y, String id, String hover, IIcon icon)
     {
         super(parent, x, y, 20, id, null, hover);
         this.icon = icon;

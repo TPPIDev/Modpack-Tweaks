@@ -20,6 +20,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -262,13 +263,13 @@ public class CommandMT extends CommandBase
 	{
 		String properName = modProperNames.get(modName);
 
-		ItemStack stack = new ItemStack(Item.writtenBook);
+		ItemStack stack = new ItemStack(Items.written_book);
 
-		stack.setTagInfo("author", new NBTTagString("author", ConfigurationHandler.bookAuthor));
-		stack.setTagInfo("title", new NBTTagString("title", "Guide To " + properName));
+		stack.setTagInfo("author", new NBTTagString(ConfigurationHandler.bookAuthor));
+		stack.setTagInfo("title", new NBTTagString("Guide To " + properName));
 
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
-		NBTTagList bookPages = new NBTTagList("pages");
+		NBTTagList bookPages = new NBTTagList();
 
 		ArrayList<String> pages;
 
@@ -276,13 +277,13 @@ public class CommandMT extends CommandBase
 
 		if (pages.get(0).startsWith("<") && pages.get(0).endsWith("> "))
 		{
-			command.sendChatToPlayer(new ChatMessageComponent().addText(pages.get(0).substring(1, pages.get(0).length() - 2)));
+			command.addChatMessage(new ChatComponentText(pages.get(0).substring(1, pages.get(0).length() - 2)));
 			return;
 		}
 
 		for (int i = 0; i < pages.size(); i++)
 		{
-			bookPages.appendTag(new NBTTagString("" + i, pages.get(i)));
+			bookPages.appendTag(new NBTTagString(pages.get(i)));
 		}
 
 		nbttagcompound.setTag("pages", bookPages);

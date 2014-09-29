@@ -7,13 +7,12 @@ import java.io.IOException;
 import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.command.CommandMT;
 import modpacktweaks.config.ConfigurationHandler;
-import modpacktweaks.event.PlayerTracker;
+import modpacktweaks.event.BookHandler;
 import modpacktweaks.item.ModItems;
 import modpacktweaks.proxy.CommonProxy;
 import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +38,7 @@ public class ModpackTweaks
 	@SidedProxy(clientSide = "modpacktweaks.proxy.ClientProxy", serverSide = "modpacktweaks.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static PlayerTracker playerTracker;
+	public static BookHandler bookHandler;
 
 	public static final Logger logger = LogManager.getLogger("ModpackTweaks");
 
@@ -74,9 +73,8 @@ public class ModpackTweaks
 
 		ModItems.initItems();
 
-		playerTracker = new PlayerTracker();
-		// TODO 1.7 IPlayerTracker GameRegistry.registerPlayerTracker(playerTracker);
-		MinecraftForge.EVENT_BUS.register(playerTracker);
+		bookHandler = new BookHandler();
+		FMLCommonHandler.instance().bus().register(bookHandler);
 	}
 
 	@EventHandler

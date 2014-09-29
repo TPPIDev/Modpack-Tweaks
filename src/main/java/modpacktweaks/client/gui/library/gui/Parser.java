@@ -9,10 +9,10 @@ import modpacktweaks.client.gui.library.gui.element.ElementBaseContainer;
 import modpacktweaks.client.gui.library.gui.element.ElementCrafting;
 import modpacktweaks.client.gui.library.gui.element.ElementScrollPanel;
 import modpacktweaks.client.gui.library.gui.element.ElementText;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 /***
@@ -39,13 +39,13 @@ public class Parser
     public ArrayList<ElementBase> parse(String string)
     {
         // testing, for now
-        parsedElements.add(new ElementCrafting(parentGui, maxWidth / 2 - 5, currentY, 0).addAllGridSlots(new ItemStack[] { new ItemStack(Block.stone), new ItemStack(Block.stone), null, new ItemStack(Block.stone), new ItemStack(Block.stone), null, null, null, null }).addOutputSlot(new ItemStack(Block.stoneBrick)));
-        parsedElements.add(new ElementCrafting(parentGui, 0, currentY, 1).addBothFurnaceSlots(new ItemStack[] { new ItemStack(Block.cobblestone), new ItemStack(Item.coal) }).addOutputSlot(new ItemStack(Block.stone)));
+        parsedElements.add(new ElementCrafting(parentGui, maxWidth / 2 - 5, currentY, 0).addAllGridSlots(new ItemStack[] { new ItemStack(Blocks.stone), new ItemStack(Blocks.stone), null, new ItemStack(Blocks.stone), new ItemStack(Blocks.stone), null, null, null, null }).addOutputSlot(new ItemStack(Blocks.stonebrick)));
+        parsedElements.add(new ElementCrafting(parentGui, 0, currentY, 1).addBothFurnaceSlots(new ItemStack[] { new ItemStack(Blocks.cobblestone), new ItemStack(Items.coal) }).addOutputSlot(new ItemStack(Blocks.stone)));
         currentY += parsedElements.get(parsedElements.size() - 1).getHeight() + 5;
         parseText(string);
         currentY += 5;
-        parsedElements.add(new ElementCrafting(parentGui, maxWidth / 2 - 5, currentY, 0).addAllGridSlots(new ItemStack[] { new ItemStack(Block.stone), new ItemStack(Block.stone), null, new ItemStack(Block.stone), new ItemStack(Block.stone), null, null, null, null }).addOutputSlot(new ItemStack(Block.stoneBrick)));
-        parsedElements.add(new ElementCrafting(parentGui, 0, currentY, 1).addBothFurnaceSlots(new ItemStack[] { new ItemStack(Block.cobblestone), new ItemStack(Item.coal) }).addOutputSlot(new ItemStack(Block.stone)));
+        parsedElements.add(new ElementCrafting(parentGui, maxWidth / 2 - 5, currentY, 0).addAllGridSlots(new ItemStack[] { new ItemStack(Blocks.stone), new ItemStack(Blocks.stone), null, new ItemStack(Blocks.stone), new ItemStack(Blocks.stone), null, null, null, null }).addOutputSlot(new ItemStack(Blocks.stonebrick)));
+        parsedElements.add(new ElementCrafting(parentGui, 0, currentY, 1).addBothFurnaceSlots(new ItemStack[] { new ItemStack(Blocks.cobblestone), new ItemStack(Items.coal) }).addOutputSlot(new ItemStack(Blocks.stone)));
         currentY += parsedElements.get(parsedElements.size() - 1).getHeight() + 5;
         parseText("And that's how you make Stone Bricks!");
 

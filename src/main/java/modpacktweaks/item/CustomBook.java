@@ -81,6 +81,11 @@ public class CustomBook extends ItemEditableBook
 
 	public ItemStack addTextToBook(ItemStack book)
 	{
+	    if (book.getTagCompound() == null)
+	    {
+	        book.stackTagCompound = new NBTTagCompound();
+	    }
+	    
 		NBTTagCompound baseTag = book.getTagCompound();
 		NBTTagList bookPages;
 

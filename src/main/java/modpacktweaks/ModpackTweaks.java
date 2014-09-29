@@ -31,6 +31,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 public class ModpackTweaks
 {
 	public static final String VERSION = "0.1.0";
+    public static final String CHANNEL = "modpacktweaks";
 
 	@Instance
 	public static ModpackTweaks instance;

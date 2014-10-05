@@ -8,11 +8,13 @@ import modpacktweaks.client.gui.GuiHelper;
 import modpacktweaks.command.CommandMT;
 import modpacktweaks.config.ConfigurationHandler;
 import modpacktweaks.event.BookHandler;
+import modpacktweaks.event.ModEventHandler;
 import modpacktweaks.item.ModItems;
 import modpacktweaks.proxy.CommonProxy;
 import modpacktweaks.util.FileLoader;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -76,6 +78,8 @@ public class ModpackTweaks
 
 		bookHandler = new BookHandler();
 		FMLCommonHandler.instance().bus().register(bookHandler);
+		
+		MinecraftForge.EVENT_BUS.register(new ModEventHandler());
 	}
 
 	@EventHandler

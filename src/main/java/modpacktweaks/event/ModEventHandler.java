@@ -44,7 +44,7 @@ public class ModEventHandler
 				version = ConfigurationHandler.packVersion;
 				acronym = ConfigurationHandler.packAcronym;
 
-				Field f = null;
+				Field f;
 				try
 				{
 					f = FMLCommonHandler.class.getDeclaredField("brandings");

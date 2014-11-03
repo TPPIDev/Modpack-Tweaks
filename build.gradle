@@ -47,6 +47,13 @@ processResources {
     }
 }
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'modpacktweaks.core.MTCorePlugin'
+		attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'

@@ -14,22 +14,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import modpacktweaks.ModpackTweaks;
-import modpacktweaks.client.gui.ModDownload;
 import modpacktweaks.util.TxtParser;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class ConfigurationHandler
 {
-	private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
 	public static String bookTitle;
 	public static String bookAuthor;
 	public static int bookTexture;
@@ -110,16 +105,13 @@ public class ConfigurationHandler
 			throw new RuntimeException("[ModpackTweaks] Book texture must be between 1 and 3 (inclusive)");
 	}
 
-	public static void loadClientsideJson()
+	public static JsonArray loadClientsideJson()
 	{
 		File modDownloads = new File(cfg.getParentFile().getAbsolutePath() + "/modDownloads.json");
 
 		JsonArray arr = initializeJson("modDownloads.json", modDownloads).getAsJsonArray();
-
-		for (int i = 0; i < arr.size(); i++)
-		{
-			ModpackTweaks.proxy.addJsonToGUI(gson.fromJson(arr.get(i), ModDownload.class));
-		}
+		
+		return arr;
 	}
 
 	private static JsonElement initializeJson(String filename, File f)

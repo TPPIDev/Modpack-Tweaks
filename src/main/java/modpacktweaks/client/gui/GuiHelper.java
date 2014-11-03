@@ -12,14 +12,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class GuiHelper
 {
-	@SideOnly(Side.CLIENT)
-	public static UpdateGui updateGui;
-
-	public static void doDownloaderGUI()
-	{
-		Minecraft.getMinecraft().displayGuiScreen((updateGui = new UpdateGui(Minecraft.getMinecraft().currentScreen, false)));
-	}
-
 	public static void doGuideGUI()
 	{
 		Minecraft.getMinecraft().displayGuiScreen(new GuiGuideBase());

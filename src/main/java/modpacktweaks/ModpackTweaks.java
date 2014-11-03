@@ -58,7 +58,6 @@ public class ModpackTweaks
 	public void preInit(FMLPreInitializationEvent event)
 	{		
 		ConfigurationHandler.init(new File(event.getModConfigurationDirectory().getAbsolutePath() + "/modpackTweaks/modpackTweaks.cfg"));
-		ConfigurationHandler.loadClientsideJson();
 		
 		try
 		{

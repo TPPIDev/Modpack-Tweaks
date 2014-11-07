@@ -22,8 +22,6 @@ public class ModEventHandler
 {
 	private String name, version, acronym;
 
-	public boolean shouldLoadGUI;
-
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onGui(GuiOpenEvent event)
@@ -32,9 +30,9 @@ public class ModEventHandler
 		{
 			if (ConfigurationHandler.shouldLoadGUI && ConfigurationHandler.showDownloadGUI)
 			{
+			    ConfigurationHandler.shouldLoadGUI = false;
 				event.gui = new UpdateGui(event.gui, true);
 				GuiHelper.updateGui = (UpdateGui) event.gui;
-				shouldLoadGUI = false;
 
 				ConfigurationHandler.manuallyChangeConfigValue("B:showDownloadGUI", "true", "false");
 			}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import modpacktweaks.ModpackTweaks;
 import modpacktweaks.config.ConfigurationHandler;
+import modpacktweaks.event.ModEventHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -69,8 +70,6 @@ public class UpdateGui extends GuiScreen
 
 		this.buttonList.add(new GuiButton(-1, this.width / 2 - 150, this.height / 2 + 30, 300, 20, "Continue"));
 		this.buttonList.add(new GuiButton(11, this.width / 2 - 150, this.height / 2 + 65, 300, 20, "Skip the downloads completely"));
-		
-		ConfigurationHandler.shouldLoadGUI = false;
 	}
 
 	@Override

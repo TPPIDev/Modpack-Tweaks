@@ -75,7 +75,7 @@ public class ConfigurationHandler
 		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book").getString();
 		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book").getString();
 		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
-		bookTexture = config.get("Book Settings", "bookTexture", 1, "The texture of the spawn book (1-3)").getInt();
+		bookTexture = config.getInt("bookTexture", "Book Settings", 1, 1, 3, "The texture of the spawn book (1-3)");
 		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);
 		neverTPPITexture = config.get("Book Settings", "neverTPPITexture", false, "Disables the TPPI book texture, even if TPPITweaks is detected").getBoolean(false);
 
@@ -104,10 +104,7 @@ public class ConfigurationHandler
 
 		config.save();
 
-		if (forceTPPITexture && neverTPPITexture)
-			throw new RuntimeException("[ModpackTweaks] Do not force enable AND force disable the TPPI texture!");
-		if (bookTexture < 1 || bookTexture > 3)
-			throw new RuntimeException("[ModpackTweaks] Book texture must be between 1 and 3 (inclusive)");
+		assert !(forceTPPITexture && neverTPPITexture) : "Do not force enable AND force disable the TPPI texture!";
 	}
 
 	public static void loadClientsideJson()

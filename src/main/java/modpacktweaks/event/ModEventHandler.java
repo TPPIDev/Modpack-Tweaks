@@ -10,6 +10,7 @@ import modpacktweaks.client.gui.UpdateGui;
 import modpacktweaks.config.ConfigurationHandler;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import tterrag.core.common.util.TTFileUtils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -34,7 +35,7 @@ public class ModEventHandler
 				event.gui = new UpdateGui(event.gui, true);
 				GuiHelper.updateGui = (UpdateGui) event.gui;
 
-				ConfigurationHandler.manuallyChangeConfigValue("B:showDownloadGUI", "true", "false");
+				TTFileUtils.manuallyChangeConfigValue(ConfigurationHandler.cfg.getName(), "B:showDownloadGUI", "true", "false");
 			}
 			else
 			{

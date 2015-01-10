@@ -25,10 +25,16 @@ repositories {
         name = 'tterrag repo'
         url  = 'http://maven.tterrag.com'
     }
+    maven { // NEI
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven/"
+    }
+
 }
 
 dependencies {
     compile 'tterrag.core:ttCore:MC1.7.10-0.1.0-55'
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.4.+:dev"
 }
 
 processResources {

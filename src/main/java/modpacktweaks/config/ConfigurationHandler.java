@@ -75,7 +75,7 @@ public class ConfigurationHandler
 		bookTitle = config.get("Book Settings", "bookTitle", "Welcome Packet", "The title of the custom spawn book").getString();
 		bookAuthor = config.get("Book Settings", "bookAuthor", "Some Guys", "The author of the custom spawn book").getString();
 		changelogTitle = config.get("Book Settings", "changelogTitle", "Changelog", "The title of the changelog").getString();
-		bookTexture = config.getInt("bookTexture", "Book Settings", 1, 1, 3, "The texture of the spawn book (1-3)");
+		bookTexture = config.getInt("bookTexture", "Book Settings", 1, 1, 4, "The texture of the spawn book (1-4)\n1 - Gray cover\n2 - Light blue cover\n3 - Green cover\n4 - Potato book");
 		forceTPPITexture = config.get("Book Settings", "forceTPPITexture", false, "Forces the texture used in TPPI, if for some reason you want the snoo on your book...").getBoolean(false);
 		neverTPPITexture = config.get("Book Settings", "neverTPPITexture", false, "Disables the TPPI book texture, even if TPPITweaks is detected").getBoolean(false);
 

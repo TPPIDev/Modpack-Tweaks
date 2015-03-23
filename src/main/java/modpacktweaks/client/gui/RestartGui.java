@@ -1,6 +1,8 @@
 package modpacktweaks.client.gui;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import modpacktweaks.ModpackTweaks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -30,7 +32,7 @@ public class RestartGui extends GuiScreen
 	{
 		if (button.id == 0)
 		{
-			System.exit(0);
+			Minecraft.getMinecraft().shutdown();
 		}
 		else
 		{

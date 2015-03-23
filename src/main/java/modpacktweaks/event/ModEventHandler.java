@@ -35,7 +35,7 @@ public class ModEventHandler
 				event.gui = new UpdateGui(event.gui, true);
 				GuiHelper.updateGui = (UpdateGui) event.gui;
 
-				TTFileUtils.manuallyChangeConfigValue(ConfigurationHandler.cfg.getName(), "B:showDownloadGUI", "true", "false");
+				TTFileUtils.manuallyChangeConfigValue("modpackTweaks/" + ConfigurationHandler.cfg.getName(), "B:showDownloadGUI", "true", "false");
 			}
 			else
 			{

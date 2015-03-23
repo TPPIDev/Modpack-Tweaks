@@ -55,7 +55,7 @@ public class InstructionsGui extends GuiScreen
 		this.drawCenteredString(this.fontRendererObj, "1. Click the button below to download " + mod.name + ",", this.width / 2, this.height / 2 - 95, 0xFFFFFF);
 		this.drawCenteredString(this.fontRendererObj, "or press continue at the bottom to skip installation.", this.width / 2, this.height / 2 - 85, 0xFFFFFF);
 		this.drawCenteredString(this.fontRendererObj, "(for adfly, wait 5 seconds then click \"SKIP AD\" in the upper right)", this.width / 2, this.height / 2 - 75, 0xFFFFFF);
-		this.drawCenteredString(this.fontRendererObj, "Select the file from your computer and it will be added to the mods directory.", this.width / 2, this.height / 2 - 15, 0xFFFFFF);
+		this.drawCenteredString(this.fontRendererObj, "2. Select the file from your computer and it will be added to the mods directory.", this.width / 2, this.height / 2 - 15, 0xFFFFFF);
 		this.drawCenteredString(this.fontRendererObj, "3. Press the button below to continue.", this.width / 2, this.height / 2 + 55, 0xFFFFFF);
 
 		hasOpened = hasOpened <= 0 ? 0 : hasOpened - 1;

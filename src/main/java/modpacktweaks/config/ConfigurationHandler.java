@@ -42,6 +42,7 @@ public class ConfigurationHandler
 	public static boolean useAcronym;
 
 	public static boolean showDownloadGUI;
+    public static String downloadGuiText;
 
 	public static boolean doSpawnBook;
 	public static boolean doChangelog;
@@ -87,8 +88,15 @@ public class ConfigurationHandler
 		guideHomeText = config.get("Guide Settings", "guideHomeText", guideHomeText, "The text on the main screen of the guide.").getString();
 
 		showDownloadGUI = config.get("GUI Settings", "showDownloadGUI", true, "Whether to show the download GUI at all").getBoolean(true);
+        downloadGuiText = config.get("GUI Settings", "downloadGUIText",
+                "Hey there! This seems like the first time you are starting %name%. Welcome!\\n" +
+                        "This menu will not show again unless enabled in the ModpackTweaks config.\\n" +
+                        "Alternatively, you may use the command \"/%acro% download\" to show it in-game.\\n\\n" +
+                        "As it turns out, there are some mods we really wanted to include, but couldn't ship directly with the rest of the pack.\\n" +
+                        "Though we had to leave them out, you may use this little utility to help add them manually, to gain what we feel is the full experience.",
+                "Text to display when a mod is available to download\nUse \"\\n\" to create a linebreak. If the line gets too long, it will auto-break.\nUse \"%name%\" to insert the pack name.\nUse \"%acro%\" to insert the pack acronym").getString();
 
-		packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
+        packName = config.get("Pack Info", "packName", "Modpack #42", "The full name of the modpack").getString();
 		packVersion = config.get("Pack Info", "packVersion", "0.0.0", "The version of the modpack").getString();
 		packAcronym = config.get("Pack Info", "packAcronym", "reallyLongAcronymSoYouDontForget", "The acronym of the modpack").getString();
 

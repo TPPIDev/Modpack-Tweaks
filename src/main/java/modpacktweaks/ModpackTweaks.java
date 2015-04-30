@@ -29,9 +29,12 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = "modpackTweaks", name = "ModpackTweaks", version = ModpackTweaks.VERSION, dependencies = "required-after:ttCore;required-after:NotEnoughItems;after:ThermalExpansion")
+@Mod(modid = ModpackTweaks.MODID, name = ModpackTweaks.NAME, version = ModpackTweaks.VERSION, dependencies = ModpackTweaks.DEPEND)
 public class ModpackTweaks
 {
+    public static final String MODID = "modpackTweaks";
+    public static final String NAME = "ModpackTweaks";
+    public static final String DEPEND = "required-after:ttCore;after:ThermalExpansion";
 	public static final String VERSION = "1.2.0";
     public static final String CHANNEL = "modpacktweaks";
 

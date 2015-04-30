@@ -18,16 +18,11 @@ import modpacktweaks.util.FileLoader;
 import modpacktweaks.util.TxtParser;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.nei.VisiblityData;
-import codechicken.nei.api.INEIGuiHandler;
-import codechicken.nei.api.TaggedInventoryArea;
-
-public class GuiGuideBase extends GuiBase implements INEIGuiHandler
+public class GuiGuideBase extends GuiBase
 {
 	protected static Map<String, GuiMod> mods = new TreeMap<String, GuiMod>();
 
@@ -184,14 +179,6 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 		return lines;
 	}
 
-	// No NEI, too crowded
-	@Override
-	public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility)
-	{
-		currentVisibility.showNEI = false;
-		return currentVisibility;
-	}
-
 	private void initButtons()
 	{
 		this.addElement(new GuideButton(this, 0, 2, 20));
@@ -206,7 +193,7 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 		this.addElement(homeButton);
 	}
 
-	// There should be @Override here but people shadowing OUT OF DATE NEI INTERFACES screws up the build. I blame greg. 
+	// There should be @Override here but people shadowing OUT OF DATE NEI INTERFACES screws up the build. I blame greg.
 	public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h)
 	{
 		return true;
@@ -246,18 +233,6 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 		mods.keySet();
 	}
 
-	@Override
-	public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui)
-	{
-		return null;
-	}
-
-	@Override
-	public boolean handleDragNDrop(GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
-	{
-		return false;
-	}
-
 	public void setDefaultText(boolean startup)
 	{
 		title = "Main menu";
@@ -266,9 +241,29 @@ public class GuiGuideBase extends GuiBase implements INEIGuiHandler
 			initPanel();
 	}
 
-    @Override
-    public Iterable<Integer> getItemSpawnSlots(GuiContainer arg0, ItemStack arg1)
-    {
-        return null;
-    }
+    //	// No NEI, too crowded
+//	@Override
+//	public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility)
+//	{
+//		currentVisibility.showNEI = false;
+//		return currentVisibility;
+//	}
+
+//	@Override
+//	public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui)
+//	{
+//		return null;
+//	}
+//
+//	@Override
+//	public boolean handleDragNDrop(GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
+//	{
+//		return false;
+//	}
+
+//    @Override
+//    public Iterable<Integer> getItemSpawnSlots(GuiContainer arg0, ItemStack arg1)
+//    {
+//        return null;
+//    }
 }

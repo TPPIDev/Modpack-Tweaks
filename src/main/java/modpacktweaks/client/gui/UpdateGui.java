@@ -68,8 +68,8 @@ public class UpdateGui extends GuiScreen
 
 		this.buttonList.clear();
 
-		this.buttonList.add(new GuiButton(-1, this.width / 2 - 150, this.height / 2 + 30, 300, 20, "Continue"));
-		this.buttonList.add(new GuiButton(11, this.width / 2 - 150, this.height / 2 + 65, 300, 20, "Skip the downloads completely"));
+		this.buttonList.add(new GuiButton(-1, this.width / 2 - 150, this.height / 2 + 75, 300, 20, "Continue"));
+		this.buttonList.add(new GuiButton(11, this.width / 2 - 150, this.height / 2 + 96, 300, 20, "Skip the downloads completely"));
 	}
 
 	@Override
@@ -125,25 +125,34 @@ public class UpdateGui extends GuiScreen
 		drawScreen(par1, par2, par3, true);
 	}
 
+    @SuppressWarnings("unchecked")
 	public void drawScreen(int par1, int par2, float par3, boolean draw)
 	{
 		if (draw)
 		{
 			this.drawDefaultBackground();
 
-			if (firstTime)
-			{
-				this.drawCenteredString(this.fontRendererObj, "Hey there! This seems like the first time you are starting " + ConfigurationHandler.packName + ". Welcome!", this.width / 2, this.height / 2 - 100, 0xFFFFFF);
-				this.drawCenteredString(this.fontRendererObj, "This menu will not show again unless enabled in the ModpackTweaks config.", this.width / 2, this.height / 2 - 10, 0xFFFFFF);
-				this.drawCenteredString(this.fontRendererObj, "Alternatively, you may use the command \"/" + ConfigurationHandler.packAcronym + " download\" to show it in-game.", this.width / 2, this.height / 2, 0xFFFFFF);
-			}
+            int heightLoc = 100;
 
-			this.drawCenteredString(this.fontRendererObj, "As it turns out, there are some mods we really wanted to include,", this.width / 2, this.height / 2 - 80, 0xFFFFFF);
-			this.drawCenteredString(this.fontRendererObj, "but couldn't ship directly with the rest of the pack.", this.width / 2, this.height / 2 - 70, 0xFFFFFF);
-			this.drawCenteredString(this.fontRendererObj, "Though we had to leave them out, you may use this little utility to", this.width / 2, this.height / 2 - 50, 0xFFFFFF);
-			this.drawCenteredString(this.fontRendererObj, "help add them manually, to gain what we feel is the full experience.", this.width / 2, this.height / 2 - 40, 0xFFFFFF);
+            String[] lines = replaceTextCodes(ConfigurationHandler.downloadGuiText).split("\n");
+            for (String s : lines) {
+
+                List<String> info = fontRendererObj.listFormattedStringToWidth(s, this.width - 40);
+                for (String infoCut : info) {
+                    drawCenteredString(this.fontRendererObj, infoCut, this.width / 2, this.height / 2 - heightLoc, 0xFFFFFF);
+                    heightLoc = heightLoc - 12;
+                }
+            }
 		}
 
 		super.drawScreen(par1, par2, par3);
 	}
+
+    private static String replaceTextCodes(String toReplace) {
+        return toReplace
+                .replace("\\n", "\n")
+                .replace("%name%", ConfigurationHandler.packName)
+                .replace("%acro%", ConfigurationHandler.packAcronym)
+                .replace("%version%", ConfigurationHandler.packVersion);
+    }
 }

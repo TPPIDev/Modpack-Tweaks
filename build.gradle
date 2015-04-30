@@ -35,15 +35,10 @@ repositories {
         name = 'tterrag repo'
         url  = 'http://maven.tterrag.com'
     }
-    maven { // NEI
-        name = "chickenbones"
-        url = "http://chickenbones.net/maven/"
-    }
 }
 
 dependencies {
     compile "tterrag.core:ttCore:MC${mc_version}-${ttCore_version}:deobf"
-    compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
 }
 
 minecraft {

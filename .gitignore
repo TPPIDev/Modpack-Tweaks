@@ -1,24 +1,26 @@
-*.class
+# General use .gitignore for Minecraft modding.
 
-# Package Files #
-*.war
-*.ear
-/build
-/eclipse
-/bin
+# Directories
+/.gradle/
+/build/
+/eclipse/
+/run/
+/out/
+/asm/
+/bin/
+/.idea/
+/.metadata/
+/.settings/
+/libs/
 
-*.mtl
+# File Extensions
+*.psd
+*.iml
+*.ipr
+*.iws
 *.classpath
 *.project
-/.settings
-/.gradle
-/config
-!/src/main/resources
-/crash-reports
-/logs
-/mods
-/resourcepacks
-/saves
-/screenshots
-/options.txt
-/libs
+*.class
+
+# Specific files
+Thumbs.db

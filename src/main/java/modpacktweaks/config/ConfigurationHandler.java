@@ -42,6 +42,7 @@ public class ConfigurationHandler
 	public static boolean useAcronym;
 
 	public static boolean showDownloadGUI;
+    public static boolean disableDownloadGuiAfterViewed;
     public static String downloadGuiText;
 
 	public static boolean doSpawnBook;
@@ -88,6 +89,8 @@ public class ConfigurationHandler
 		guideHomeText = config.get("Guide Settings", "guideHomeText", guideHomeText, "The text on the main screen of the guide.").getString();
 
 		showDownloadGUI = config.get("GUI Settings", "showDownloadGUI", true, "Whether to show the download GUI at all").getBoolean(true);
+        disableDownloadGuiAfterViewed = config.get("GUI Settings", "disableDownloadGuiAfterViewed", true, "If enabled, the download GUI shown at startup will only show once.\n" +
+                "Disable this to effectively force your players to download the extra mods.").getBoolean();
         downloadGuiText = config.get("GUI Settings", "downloadGUIText",
                 "Hey there! This seems like the first time you are starting %name%. Welcome!\\n" +
                         "This menu will not show again unless enabled in the ModpackTweaks config.\\n" +

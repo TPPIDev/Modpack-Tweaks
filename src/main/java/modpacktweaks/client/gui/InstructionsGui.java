@@ -128,7 +128,7 @@ public class InstructionsGui extends GuiScreen
 				try
 				{
 					if (mod != null)
-						FileUtils.moveFile(mod, new File(Reference.getModsFolder().getCanonicalPath() + "/" + mod.getName()));
+						FileUtils.copyFile(mod, new File(Reference.getModsFolder().getCanonicalPath() + "/" + mod.getName()));
 				}
 				catch (IOException e)
 				{

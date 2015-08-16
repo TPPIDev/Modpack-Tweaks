@@ -34,8 +34,8 @@ public class ModpackTweaks
 {
     public static final String MODID = "modpackTweaks";
     public static final String NAME = "ModpackTweaks";
-    public static final String DEPEND = "required-after:ttCore;after:ThermalExpansion";
-	public static final String VERSION = "1.2.0";
+    public static final String DEPEND = "required-after:endercore;after:ThermalExpansion";
+	public static final String VERSION = "@VERSION@";
     public static final String CHANNEL = "modpacktweaks";
 
 	@Instance

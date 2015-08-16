@@ -31,19 +31,22 @@ if (new File(projectDir, '.git').exists()) {
 }
 
 repositories {
-	maven { // ttCore
+	maven { // EnderCore
         name = 'tterrag repo'
         url  = 'http://maven.tterrag.com'
     }
 }
 
 dependencies {
-    compile "tterrag.core:ttCore:MC${mc_version}-${ttCore_version}:deobf"
+    compile "com.enderio.core:EnderCore:${mc_version}-${endercore_version}:dev"
 }
 
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
+
+    replace "@VERSION@", project.version
+    replaceIn "ModpackTweaks.java"
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
